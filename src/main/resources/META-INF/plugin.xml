@@ -1,0 +1,49 @@
+<idea-plugin version="2">
+  <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
+  <name>Swagger Codegen</name>
+  <version>1.0</version>
+  <vendor email="james.schubert@gmail.com" url="https://github.com/jimschubert">Jim Schubert</vendor>
+
+  <description><![CDATA[
+    <html>
+      Swagger Codegen <em>from your IDE</em>
+    </html>
+    ]]></description>
+
+  <change-notes><![CDATA[
+      <html>
+      <dl>
+        <dt>1.0</dt>
+        <dd>Magic</dd>
+      </dl>
+      </html>
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="143" until-build="163.*"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+  <depends>com.intellij.modules.platform</depends>
+˝
+  <!--<extensions defaultExtensionNs="com.intellij">-->
+    <!--&lt;!&ndash; Add your extensions here &ndash;&gt;-->
+  <!--</extensions>-->
+˝
+  <actions>
+    <group popup="true" text="Swagger" id="Swagger" description="Swagger">
+      <add-to-group group-id="CodeMenu" anchor="last"/>
+    </group>
+    <!-- Add your actions here -->
+    <action id="swaggercodegen.generate" class="com.jimschubert.intellij.swaggercodegen.actions.CodegenGenerateAction"
+            text="Generate from Swagger" description="Generate code from a Swagger Definition">
+      <add-to-group group-id="Swagger" anchor="last"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="shift alt G"/>
+    </action>
+  </actions>
+
+</idea-plugin>

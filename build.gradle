@@ -1,0 +1,63 @@
+// TODO: Convert to kotlin-based build.gradle as soon as possible
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+plugins {
+    id "org.jetbrains.intellij" version "0.1.5"
+}
+
+apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'idea'
+
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+
+intellij {
+    version '15.0.1'
+//    plugins 'coverage'
+    pluginName 'intellij_swagger_codegen'
+
+//    version ideaVersion
+//    downloadSources Boolean.valueOf(downloadIdeaSources)
+//
+    updateSinceUntilBuild false
+    sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+    compile 'io.swagger:swagger-codegen:2.1.6'
+    runtime group: 'io.swagger', name: 'swagger-codegen', version: '2.1.6', transitive: true
+}
+
+idea {
+    project {
+        jdkName         = javaVersion
+        languageLevel   = javaVersion
+    }
+}
+
+version = "${version}.$buildNumber"
