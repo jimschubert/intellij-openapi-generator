@@ -26,8 +26,9 @@ import javax.swing.JTextField
 
 internal class LanguageOptionsPanel(val language: CodegenConfig) {
     companion object {
+        private val _swaggerInfoPanel = SwaggerInfoPanel().component
         val empty: JPanel
-            get() = JPanel()
+            get() = _swaggerInfoPanel
     }
 
     private var _component: JPanel? = null

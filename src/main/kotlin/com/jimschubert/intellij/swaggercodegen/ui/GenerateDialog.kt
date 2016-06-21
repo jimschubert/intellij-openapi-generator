@@ -22,6 +22,7 @@ import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.ActionToolbar
 import com.intellij.openapi.actionSystem.DefaultActionGroup
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
@@ -29,12 +30,12 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.openapi.ui.ValidationInfo
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.ui.IdeBorderFactory
-import com.intellij.ui.OnePixelSplitter
-import com.intellij.ui.ScrollPaneFactory
-import com.intellij.ui.TabbedPaneWrapper
+import com.intellij.ui.*
+import com.intellij.ui.tabs.JBTabs
+import com.intellij.ui.tabs.impl.JBTabsImpl
 import com.intellij.util.ui.FormBuilder
 import com.intellij.util.ui.JBUI
+import com.intellij.util.ui.tree.TreeUtil
 import com.jimschubert.intellij.swaggercodegen.Message
 import io.swagger.codegen.CodegenConfig
 import io.swagger.codegen.CodegenType
@@ -48,6 +49,7 @@ import javax.swing.*
 class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrapper(project) {
     companion object {
         private var generatorTypeMap: MutableMap<CodegenType, MutableList<CodegenConfig>> = mutableMapOf()
+        private val app = ApplicationManager.getApplication()
     }
 
     private lateinit var optionsPanel: JPanel
@@ -199,11 +201,15 @@ class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrappe
         tree = GeneratorsTreePanel(generatorTypeMap)
         tree.addNodeChangeListener(GeneratorsTreeSelectionListener { p: JPanel, configOptions: CodegenConfigOptions? ->
             currentConfigOptions = configOptions
+            val tabPane = langPanel.component.components.first() as? JBTabsImpl
             if (currentConfigOptions != null) {
                 langPanel.setTitleAt(0, currentConfigOptions?.config?.name)
+                tabPane?.tabs?.forEachIndexed { index, tabInfo -> if(index > 0) tabInfo.isHidden = false }
             } else {
-                langPanel.setTitleAt(0, "Language")
+                langPanel.setTitleAt(0, "Swagger")
+                tabPane?.tabs?.forEachIndexed { index, tabInfo -> if(index > 0) tabInfo.isHidden = true }
             }
+            langPanel.selectedIndex = 0
             syncOptionsPanelOnChange(p)
         })
         expander = DefaultTreeExpander(tree.genTypeTree)
@@ -304,6 +310,12 @@ class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrappe
 
         // https://github.com/JetBrains/intellij-plugins/blob/a37e133b767d5b407b172758bce8475515becc16/Dart/src/com/jetbrains/lang/dart/ide/runner/server/ui/DartCommandLineConfigurationEditorForm.java#L38
         panel.add(outputPanel, BorderLayout.SOUTH)
+
+        app.invokeLater {
+            if (tree.genTypeTree.selectionPath == null) {
+                TreeUtil.selectFirstNode(tree.genTypeTree);
+            }
+        }
 
         return panel
     }

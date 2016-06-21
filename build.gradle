@@ -36,6 +36,11 @@ intellij {
 //
     updateSinceUntilBuild false
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
+
+    publish {
+        pluginId 'intellij_swagger_codegen'
+        apply from: "${System.getProperty("user.home")}/.gradle/config/intellij.properties"
+    }
 }
 
 repositories {
