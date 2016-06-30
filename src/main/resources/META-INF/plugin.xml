@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
   <name>Swagger Codegen</name>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <vendor email="james.schubert@gmail.com" url="https://github.com/jimschubert">Jim Schubert</vendor>
 
   <description><![CDATA[
@@ -12,6 +12,10 @@
 
   <change-notes><![CDATA[
       <html>
+      <dl>
+        <dt>0.0.2</dt>
+        <dd>Include notice: Swagger® is a registered trademark of SmartBear Software, Inc.</dd>
+      </dl>
       <dl>
         <dt>0.0.1</dt>
         <dd>Magic</dd>
