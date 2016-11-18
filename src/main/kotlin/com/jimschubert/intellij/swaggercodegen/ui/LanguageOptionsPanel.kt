@@ -35,7 +35,7 @@ internal class LanguageOptionsPanel(val language: CodegenConfig) {
     val component: JPanel
         get() = _component ?: empty
 
-    private lateinit var optionTrackers: MutableList<UserOptionInput>
+    private var optionTrackers: MutableList<UserOptionInput>
     val userOptions: MutableList<UserOptionInput>
         get() = optionTrackers
 

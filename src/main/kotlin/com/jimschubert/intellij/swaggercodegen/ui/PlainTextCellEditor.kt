@@ -22,7 +22,7 @@ import javax.swing.JTable
 import javax.swing.JTextField
 
 internal class PlainTextCellEditor : AbstractTableCellEditor() {
-    private lateinit var component: JTextField
+    private var component: JTextField
 
     init {
         component = JTextField()
