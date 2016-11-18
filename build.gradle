@@ -58,8 +58,17 @@ sourceSets {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
-    compile 'io.swagger:swagger-codegen:2.1.6'
-    runtime group: 'io.swagger', name: 'swagger-codegen', version: '2.1.6', transitive: true
+
+    // [temporary] swagger-parser is using an older version of these deps. Newer version breaks compile.
+    compile 'org.slf4j:slf4j-api:1.6.3'
+    compile 'org.slf4j:slf4j-ext:1.6.3'
+    compile 'org.slf4j:slf4j-simple:1.6.3'
+    compile('io.swagger:swagger-codegen:2.2.1') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'org.slf4j', module: 'slf4j-ext'
+        exclude group: 'org.slf4j', module: 'slf4j-simple'
+    }
+    runtime group: 'io.swagger', name: 'swagger-codegen', version: '2.2.1', transitive: true
 }
 
 idea {

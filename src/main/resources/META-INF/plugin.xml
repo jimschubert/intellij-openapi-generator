@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
   <name>Swagger Codegen</name>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <vendor email="james.schubert@gmail.com" url="https://github.com/jimschubert">Jim Schubert</vendor>
 
   <description><![CDATA[
@@ -12,6 +12,10 @@
 
   <change-notes><![CDATA[
       <html>
+      <dl>
+        <dt>0.0.3</dt>
+        <dd>Update to Swagger Codegen 2.2.1</dd>
+      </dl>
       <dl>
         <dt>0.0.2</dt>
         <dd>Include notice: Swagger® is a registered trademark of SmartBear Software, Inc.</dd>
@@ -47,6 +51,10 @@
             text="Generate from Swagger" description="Generate code from a Swagger Definition">
       <add-to-group group-id="Swagger" anchor="last"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift alt G"/>
+    </action>
+    <action id="swaggercodegen.version" class="com.jimschubert.intellij.swaggercodegen.actions.CodegenVersion"
+        text="Codegen Version" description="Swagger Codegen Version">
+      <add-to-group group-id="Swagger" anchor="last"/>
     </action>
   </actions>
 
