@@ -1,3 +1,6 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+
 // TODO: Convert to kotlin-based build.gradle as soon as possible
 buildscript {
     repositories {
@@ -38,7 +41,9 @@ intellij {
 
     publish {
         pluginId 'intellij_swagger_codegen'
-        apply from: "${System.getProperty("user.home")}/.gradle/config/intellij.properties"
+        if(Files.exists(Paths.get("${System.getProperty("user.home")}/.gradle/config/intellij.properties"))) {
+            apply from: "${System.getProperty("user.home")}/.gradle/config/intellij.properties"
+        }
     }
 }
 
