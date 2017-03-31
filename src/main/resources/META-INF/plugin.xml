@@ -13,6 +13,10 @@
   <change-notes><![CDATA[
       <html>
       <dl>
+        <dt>0.0.4</dt>
+        <dd>Update to Swagger Codegen 2.2.2, and support newest idea version</dd>
+      </dl>
+      <dl>
         <dt>0.0.3</dt>
         <dd>Update to Swagger Codegen 2.2.1</dd>
       </dl>
@@ -29,19 +33,17 @@
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="143" until-build="163.*"/>
+  <idea-version since-build="143" />
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
-  <!-- uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>
-  -->
   <depends>com.intellij.modules.platform</depends>
-˝
+
   <!--<extensions defaultExtensionNs="com.intellij">-->
     <!--&lt;!&ndash; Add your extensions here &ndash;&gt;-->
   <!--</extensions>-->
-˝
+
   <actions>
     <group popup="true" text="Swagger" id="Swagger" description="Swagger">
       <add-to-group group-id="CodeMenu" anchor="last"/>
