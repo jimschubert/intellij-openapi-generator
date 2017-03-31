@@ -52,6 +52,8 @@ internal class ConstrainedOptionsPanel(val options: List<CliConstrainedOption>, 
                 y++
             }
         }
+        // avoid group.selection to be null when there is no default option
+        if (group.selection == null) group.elements.nextElement().isSelected = true        
     }
 
     val value: String
