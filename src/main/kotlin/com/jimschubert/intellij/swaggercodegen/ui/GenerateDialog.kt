@@ -152,6 +152,12 @@ class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrappe
 
     // TODO: Form validation
     override fun doValidate(): ValidationInfo? {
+        // valid Swagger file
+        val swagger = io.swagger.parser.SwaggerParser().read(file.path)
+        if (swagger != null) {
+            return ValidationInfo("Swagger file is invalid.", null)
+        }
+
         if(outputBrowse.text.isEmpty()){
             return ValidationInfo("Output directory is empty.", outputBrowse)
         } else {
