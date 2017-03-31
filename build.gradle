@@ -63,12 +63,12 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.6.3'
     compile 'org.slf4j:slf4j-ext:1.6.3'
     compile 'org.slf4j:slf4j-simple:1.6.3'
-    compile('io.swagger:swagger-codegen:2.2.1') {
+    compile('io.swagger:swagger-codegen:2.2.2') {
         exclude group: 'org.slf4j', module: 'slf4j-api'
         exclude group: 'org.slf4j', module: 'slf4j-ext'
         exclude group: 'org.slf4j', module: 'slf4j-simple'
     }
-    runtime group: 'io.swagger', name: 'swagger-codegen', version: '2.2.1', transitive: true
+    runtime group: 'io.swagger', name: 'swagger-codegen', version: '2.2.2', transitive: true
 }
 
 idea {
