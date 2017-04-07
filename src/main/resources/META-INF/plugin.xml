@@ -14,7 +14,7 @@
       <html>
       <dl>
         <dt>0.0.4</dt>
-        <dd>Update to Swagger Codegen 2.2.2, and support newest idea version</dd>
+        <dd>Update to Swagger Codegen 2.2.2, with support for JSON files and newest idea version</dd>
       </dl>
       <dl>
         <dt>0.0.3</dt>
