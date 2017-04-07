@@ -33,13 +33,19 @@ class CodegenGenerateAction : AnAction() {
     override fun update(e: AnActionEvent?) {
         try {
             val file = e?.getData(PlatformDataKeys.VIRTUAL_FILE)
+            val ext = file?.extension?.toLowerCase() ?: ""
             if (e != null && file != null) {
-                e.presentation.isEnabled = file.extension != null && (file.extension.equals("yaml") || file.extension.equals("yml"))
+                // TODO: Add a better condition here, or maybe support user-defined regex
+                e.presentation.isEnabled = validExtensions.contains(ext)
             } else {
                 super.update(e)
             }
         } catch(ex: Throwable) {
             super.update(e)
         }
+    }
+
+    companion object {
+        val validExtensions = listOf("yaml", "yml", "json")
     }
 }

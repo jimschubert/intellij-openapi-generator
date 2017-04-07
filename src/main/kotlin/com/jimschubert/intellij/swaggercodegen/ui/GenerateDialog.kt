@@ -153,10 +153,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrappe
     // TODO: Form validation
     override fun doValidate(): ValidationInfo? {
         // valid Swagger file
-        val swagger = io.swagger.parser.SwaggerParser().read(file.path)
-        if (swagger != null) {
-            return ValidationInfo("Swagger file is invalid.", null)
-        }
+        val swagger = io.swagger.parser.SwaggerParser().read(file.path) ?: return ValidationInfo("Swagger file is invalid.", null)
 
         if(outputBrowse.text.isEmpty()){
             return ValidationInfo("Output directory is empty.", outputBrowse)
@@ -238,7 +235,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrappe
         configurator.importMappings = importMappingsPanel.itemsAsMap()
         configurator.typeMappings = typeMappingsPanel.itemsAsMap()
         configurator.languageSpecificPrimitives = primitivesPanel.itemsAsSet()
-        configurator.additionalProperties = additionalPropertiesPanel.itemsAsMap()
+        configurator.additionalProperties = additionalPropertiesPanel.itemsAsMap() as Map<String, Any>?
 
         configurator.isVerbose = settingsPanel.isVerbose
         configurator.isSkipOverwrite = settingsPanel.skipOverwrite

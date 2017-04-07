@@ -6,6 +6,30 @@ While designing your API, you can generate one or more clients from within the I
 
 Also install [intellij-swagger](https://plugins.jetbrains.com/plugin/8347) for a seamless Swagger experience.
 
+# Building
+
+```
+./gradlew clean buildPlugin
+```
+
+# Running in IntelliJ
+
+First, you'll need to [setup a development environment](http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/setting_up_environment.html).
+
+Then:
+
+```
+./gradlew runIdea
+```
+
+NOTE: When running locally, if changes don't appear in the sandbox instance you may have forgotten to update the plugin version in `gradle.properties`.
+
+# Usage
+
+Open a swagger YAML or JSON file in IntelliJ. With the document active, navigate to Code -> Swagger -> Generate from Swagger.
+
+Choose your desired generator and fill out options. Then, choose an output directory and generate.
+
 ## License
 
 This project is licensed under the Apache 2.0 license. See [./LICENSE](LICENSE) for more details.
