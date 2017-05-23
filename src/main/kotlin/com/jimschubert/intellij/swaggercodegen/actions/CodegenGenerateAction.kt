@@ -19,15 +19,18 @@ package com.jimschubert.intellij.swaggercodegen.actions
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.PlatformDataKeys
+import com.jimschubert.intellij.swaggercodegen.events.GenerationNotificationManager
 import com.jimschubert.intellij.swaggercodegen.ui.GenerateDialog
 
 class CodegenGenerateAction : AnAction() {
 
+    private val notificationManager: GenerationNotificationManager = GenerationNotificationManager()
+
     override fun actionPerformed(e: AnActionEvent) {
-        val project = e.project ?: return;
+        val project = e.project ?: return
         val file = e.getData(PlatformDataKeys.VIRTUAL_FILE) ?: return
 
-        GenerateDialog(project, file).show()
+        GenerateDialog(project, file, notificationManager).show()
     }
 
     override fun update(e: AnActionEvent?) {

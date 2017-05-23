@@ -23,6 +23,7 @@ import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.ActionToolbar
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
@@ -31,12 +32,11 @@ import com.intellij.openapi.ui.ValidationInfo
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.*
-import com.intellij.ui.tabs.JBTabs
 import com.intellij.ui.tabs.impl.JBTabsImpl
-import com.intellij.util.ui.FormBuilder
 import com.intellij.util.ui.JBUI
 import com.intellij.util.ui.tree.TreeUtil
 import com.jimschubert.intellij.swaggercodegen.Message
+import com.jimschubert.intellij.swaggercodegen.events.GenerationNotificationManager
 import io.swagger.codegen.CodegenConfig
 import io.swagger.codegen.CodegenType
 import io.swagger.codegen.DefaultGenerator
@@ -46,12 +46,13 @@ import java.io.File
 import java.util.*
 import javax.swing.*
 
-class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrapper(project) {
+class GenerateDialog(val project: Project, val file: VirtualFile, val notificationManager: GenerationNotificationManager) : DialogWrapper(project) {
     companion object {
         private var generatorTypeMap: MutableMap<CodegenType, MutableList<CodegenConfig>> = mutableMapOf()
         private val app = ApplicationManager.getApplication()
     }
 
+    private val logger = Logger.getInstance(this.javaClass)
     private lateinit var optionsPanel: JPanel
     private lateinit var settingsPanel: GeneratorGeneralSettingsPanel
     private lateinit var panel: JPanel
@@ -156,6 +157,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrappe
         val swagger = io.swagger.parser.SwaggerParser().read(file.path) ?: return ValidationInfo("Swagger file is invalid.", null)
 
         if(outputBrowse.text.isEmpty()){
+            notificationManager.warn("Output directory is empty.")
             return ValidationInfo("Output directory is empty.", outputBrowse)
         } else {
             val path = outputBrowse.text.replaceFirst("^~", System.getProperty("user.home"))
@@ -165,15 +167,18 @@ class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrappe
 
             val output = File(FileUtil.toSystemDependentName(path))
             if(output.exists() && !output.isDirectory) {
+                notificationManager.warn("Output directory is not a valid directory.")
                 return ValidationInfo("Output directory is not a valid directory.", outputBrowse)
             }
             if(!output.exists()) {
                 if(FileUtil.createDirectory(output)) {
+                    notificationManager.warn("Could not create output directory.")
                     return ValidationInfo("Could not create output directory.", outputBrowse)
                 }
             }
 
             if(!output.canWrite()) {
+                notificationManager.warn("Output directory is not writable.")
                 return ValidationInfo("Output directory is not writable.", outputBrowse)
             }
         }
@@ -219,11 +224,9 @@ class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrappe
     }
 
     override fun doOKAction() {
-        println("Inputs:")
-        println(currentConfigOptions?.config?.javaClass?.simpleName)
-        currentConfigOptions?.inputs?.forEach { println("${it.cliOption.opt}: ${it.userInput.invoke()}") }
-
-        println("\n")
+        logger.debug("Inputs:")
+        logger.debug(currentConfigOptions?.config?.javaClass?.simpleName)
+        currentConfigOptions?.inputs?.forEach { logger.debug("${it.cliOption.opt}: ${it.userInput.invoke()}") }
 
         val configurator = CodegenConfigurator.fromFile(settingsPanel.configurationFile) ?: CodegenConfigurator()
 
@@ -263,12 +266,22 @@ class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrappe
             configurator.addAdditionalProperty(userInput.cliOption.opt, userInput.userInput())
         }
 
-        println("\n")
-        DefaultGenerator()
-                .opts(configurator.toClientOptInput())
-                .generate()
+        try {
+            val files: MutableList<File> = DefaultGenerator()
+                    .opts(configurator.toClientOptInput())
+                    .generate()
 
-        println("Generated contents should be in ${outputBrowse.text}")
+            logger.debug("Generated contents can be found in ${outputBrowse.text}.")
+
+            if(files.count() > 0) logger.debug("Generated files:")
+            files.forEach { f -> logger.debug(f.canonicalPath) }
+
+            notificationManager.success(currentConfigOptions?.config?.name ?: configurator.lang, configurator.outputDir)
+        } catch (t: Throwable) {
+            // notificationManager logs the error here, and we don't want to duplicate
+            notificationManager.failure(t)
+        }
+
         super.doOKAction()
     }
 
@@ -314,10 +327,8 @@ class GenerateDialog(val project: Project, val file: VirtualFile) : DialogWrappe
         // https://github.com/JetBrains/intellij-plugins/blob/a37e133b767d5b407b172758bce8475515becc16/Dart/src/com/jetbrains/lang/dart/ide/runner/server/ui/DartCommandLineConfigurationEditorForm.java#L38
         panel.add(outputPanel, BorderLayout.SOUTH)
 
-        app.invokeLater {
-            if (tree.genTypeTree.selectionPath == null) {
-                TreeUtil.selectFirstNode(tree.genTypeTree);
-            }
+        if (currentConfigOptions == null || tree.genTypeTree.selectionPath == null) {
+            TreeUtil.selectFirstNode(tree.genTypeTree)
         }
 
         return panel
