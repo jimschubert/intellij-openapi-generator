@@ -18,6 +18,8 @@
 
   <change-notes><![CDATA[
       <dl>
+        <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v0.1.0">0.1.0</a></dt>
+        <dd>Update to Swagger Codegen 2.2.3</dd>
         <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v0.0.5">0.0.5</a></dt>
         <dd>
           <ul>

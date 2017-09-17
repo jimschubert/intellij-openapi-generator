@@ -41,6 +41,10 @@ intellij {
 
     publish {
         pluginId 'intellij_swagger_codegen'
+
+        // File contents at ~/.gradle/config/intellij.properties
+        // intellij.publish.username=username
+        // intellij.publish.password=password
         if(Files.exists(Paths.get("${System.getProperty("user.home")}/.gradle/config/intellij.properties"))) {
             apply from: "${System.getProperty("user.home")}/.gradle/config/intellij.properties"
         }
@@ -59,16 +63,15 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
-    // [temporary] swagger-parser is using an older version of these deps. Newer version breaks compile.
-    compile 'org.slf4j:slf4j-api:1.6.3'
-    compile 'org.slf4j:slf4j-ext:1.6.3'
-    compile 'org.slf4j:slf4j-simple:1.6.3'
-    compile('io.swagger:swagger-codegen:2.2.2') {
+    compile "org.slf4j:slf4j-api:$slf4jVersion"
+    compile "org.slf4j:slf4j-ext:$slf4jVersion"
+    compile "org.slf4j:slf4j-simple:$slf4jVersion"
+    compile("io.swagger:swagger-codegen:$swaggerVersion") {
         exclude group: 'org.slf4j', module: 'slf4j-api'
         exclude group: 'org.slf4j', module: 'slf4j-ext'
         exclude group: 'org.slf4j', module: 'slf4j-simple'
     }
-    runtime group: 'io.swagger', name: 'swagger-codegen', version: '2.2.2', transitive: true
+    runtime group: 'io.swagger', name: 'swagger-codegen', version: "$swaggerVersion", transitive: true
 }
 
 idea {
