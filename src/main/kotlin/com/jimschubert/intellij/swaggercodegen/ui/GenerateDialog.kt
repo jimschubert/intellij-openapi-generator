@@ -154,7 +154,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
     // TODO: Form validation
     override fun doValidate(): ValidationInfo? {
         // valid Swagger file
-        val swagger = io.swagger.parser.SwaggerParser().read(file.path) ?: return ValidationInfo("Swagger file is invalid.", null)
+        io.swagger.parser.SwaggerParser().read(file.path) ?: return ValidationInfo("Swagger file is invalid.", null)
 
         if(outputBrowse.text.isEmpty()){
             notificationManager.warn("Output directory is empty.")

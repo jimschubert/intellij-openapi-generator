@@ -13,7 +13,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.1.10"
+    id "org.jetbrains.intellij" version "0.3.1"
 }
 
 apply plugin: 'java'
@@ -29,7 +29,7 @@ compileJava {
 
 
 intellij {
-    version '15.0.1'
+    version '2017.3.3'
 //    plugins 'coverage'
     pluginName 'intellij_swagger_codegen'
 
@@ -38,16 +38,14 @@ intellij {
 //
     updateSinceUntilBuild false
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
+}
 
-    publish {
-        pluginId 'intellij_swagger_codegen'
-
-        // File contents at ~/.gradle/config/intellij.properties
-        // intellij.publish.username=username
-        // intellij.publish.password=password
-        if(Files.exists(Paths.get("${System.getProperty("user.home")}/.gradle/config/intellij.properties"))) {
-            apply from: "${System.getProperty("user.home")}/.gradle/config/intellij.properties"
-        }
+publishPlugin {
+    // File contents at ~/.gradle/config/intellij.properties
+    // publishPlugin.username=username
+    // publishPlugin.password=password
+    if(Files.exists(Paths.get("${System.getProperty("user.home")}/.gradle/config/intellij.properties"))) {
+        apply from: "${System.getProperty("user.home")}/.gradle/config/intellij.properties"
     }
 }
 

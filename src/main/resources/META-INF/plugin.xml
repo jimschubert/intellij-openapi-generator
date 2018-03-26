@@ -1,4 +1,4 @@
-<idea-plugin version="2">
+<idea-plugin>
   <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
   <name>Swagger Codegen</name>
   <version>0.0.5</version>
@@ -18,6 +18,8 @@
 
   <change-notes><![CDATA[
       <dl>
+        <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v1.0.0">1.0.0</a></dt>
+        <dd>Major Release: Swagger Codegen 2.3.1</dd>
         <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v0.1.0">0.1.0</a></dt>
         <dd>Update to Swagger Codegen 2.2.3</dd>
         <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v0.0.5">0.0.5</a></dt>
