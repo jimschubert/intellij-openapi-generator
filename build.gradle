@@ -31,7 +31,7 @@ compileJava {
 intellij {
     version '2017.3.3'
 //    plugins 'coverage'
-    pluginName 'intellij_swagger_codegen'
+    pluginName 'intellij_openapi_generator'
 
 //    version ideaVersion
 //    downloadSources Boolean.valueOf(downloadIdeaSources)

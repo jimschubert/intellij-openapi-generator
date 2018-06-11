@@ -1,16 +1,16 @@
 <idea-plugin>
-  <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
-  <name>Swagger Codegen</name>
-  <version>0.0.5</version>
+  <id>main.kotlin.org.openapitools.codegen.intellij</id>
+  <name>OpenAPI Generator</name>
+  <version>3.0.0</version>
   <vendor email="james.schubert@gmail.com" url="https://jimschubert.us">Jim Schubert</vendor>
 
   <description><![CDATA[
-      <h1>Swagger Codegen</h1>
+      <h1>OpenAPI Generator</h1>
       <br/>
-      <a href="https://github.com/jimschubert/intellij-swagger-codegen">GitHub</a>&nbsp;
-      <a href="https://github.com/jimschubert/intellij-swagger-codegen/issues">Issues</a>
+      <a href="https://github.com/jimschubert/intellij-openapi-generator">GitHub</a>&nbsp;
+      <a href="https://github.com/jimschubert/intellij-openapi-generator/issues">Issues</a>
       <br/><br/>
-      The <b>Swagger Codegen</b> plugin allows you to generate client, server, or documentation code
+      The <b>OpenAPI Generator</b> plugin allows you to generate client, server, or documentation code
       from your Swagger/OpenAPI specifications <em>within your IDE</em>.
       <br/><br/>
       <a href="https://paypal.me/JamesSchubert">beer $$</a>
@@ -18,29 +18,29 @@
 
   <change-notes><![CDATA[
       <dl>
-        <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v1.0.0">1.0.0</a></dt>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v1.0.0">1.0.0</a></dt>
         <dd>Major Release: Swagger Codegen 2.3.1</dd>
-        <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v0.1.0">0.1.0</a></dt>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.1.0">0.1.0</a></dt>
         <dd>Update to Swagger Codegen 2.2.3</dd>
-        <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v0.0.5">0.0.5</a></dt>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.0.5">0.0.5</a></dt>
         <dd>
           <ul>
             <li>UX: Display balloon on successful/failed generation.</li>
             <li>Fix possible 'empty language' panel before language selection.</li>
-            <li>Fix <a href="https://github.com/jimschubert/intellij-swagger-codegen/issues/4">missing swagger input or config</a> issue.</li>
+            <li>Fix <a href="https://github.com/jimschubert/intellij-openapi-generator/issues/4">missing swagger input or config</a> issue.</li>
           </ul>
         </dd>
 
-        <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v0.0.4">0.0.4</a></dt>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.0.4">0.0.4</a></dt>
         <dd>Update to Swagger Codegen 2.2.2, with support for JSON files and newest idea version</dd>
 
-        <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v0.0.3">0.0.3</a></dt>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.0.3">0.0.3</a></dt>
         <dd>Update to Swagger Codegen 2.2.1</dd>
 
-        <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v0.0.2">0.0.2</a></dt>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.0.2">0.0.2</a></dt>
         <dd>Include notice: Swagger® is a registered trademark of SmartBear Software, Inc.</dd>
 
-        <dt><a href="https://github.com/jimschubert/intellij-swagger-codegen/tree/v0.0.1">0.0.1</a></dt>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.0.1">0.0.1</a></dt>
         <dd>Magic</dd>
       </dl>
     ]]>
@@ -63,12 +63,12 @@
       <add-to-group group-id="CodeMenu" anchor="last"/>
     </group>
     <!-- Add your actions here -->
-    <action id="swaggercodegen.generate" class="com.jimschubert.intellij.swaggercodegen.actions.CodegenGenerateAction"
+    <action id="swaggercodegen.generate" class="org.openapitools.codegen.intellij.actions.CodegenGenerateAction"
             text="Generate from Swagger" description="Generate code from a Swagger Definition">
       <add-to-group group-id="Swagger" anchor="last"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift alt G"/>
     </action>
-    <action id="swaggercodegen.version" class="com.jimschubert.intellij.swaggercodegen.actions.CodegenVersion"
+    <action id="swaggercodegen.version" class="org.openapitools.codegen.intellij.actions.CodegenVersion"
         text="Codegen Version" description="Swagger Codegen Version">
       <add-to-group group-id="Swagger" anchor="last"/>
     </action>
