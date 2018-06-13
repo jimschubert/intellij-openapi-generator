@@ -25,7 +25,6 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.openapi.ui.ValidationInfo
 import com.intellij.ui.UIBundle
 import com.intellij.util.ui.FormBuilder
-import org.openapitools.codegen.intellij.Message
 import java.awt.AWTEvent
 import java.awt.event.TextEvent
 import java.io.File
@@ -116,20 +115,20 @@ internal class GeneratorGeneralSettingsPanel : Validatable {
         _component = settingsPanelBuilder.panel
     }
 
-    fun text(listener: (JTextFieldChangeEvent) -> Unit): JTextField {
+    private fun text(listener: (JTextFieldChangeEvent) -> Unit): JTextField {
         val element = JTextField()
         element.onChange { evt -> listener(evt) }
 
         return element
     }
 
-    fun checkbox(listener: (Boolean) -> Unit): JCheckBox {
+    private fun checkbox(listener: (Boolean) -> Unit): JCheckBox {
         val element = JCheckBox()
-        element.addChangeListener { e -> listener(element.isSelected) }
+        element.addChangeListener { _ -> listener(element.isSelected) }
         return element
     }
 
-    fun browse(bundleKey: String?, descriptor: FileChooserDescriptor, listener: (JTextFieldChangeEvent) -> Unit): TextFieldWithBrowseButton {
+    private fun browse(bundleKey: String?, descriptor: FileChooserDescriptor, listener: (JTextFieldChangeEvent) -> Unit): TextFieldWithBrowseButton {
         val element = TextFieldWithBrowseButton()
         element.addBrowseFolderListener(
                 org.openapitools.codegen.intellij.Message of (bundleKey ?: UIBundle.message("file.chooser.default.title")),
@@ -146,13 +145,13 @@ internal class GeneratorGeneralSettingsPanel : Validatable {
     override fun doValidate(): ValidationInfo? {
         if(_templateDirectory != null && _templateDirectory != "") {
             val tmplDir = File(_templateDirectory)
-            if(false == (tmplDir.exists() && tmplDir.isDirectory && tmplDir.canRead())) {
+            if(!(tmplDir.exists() && tmplDir.isDirectory && tmplDir.canRead())) {
                 return ValidationInfo("Invalid template directory")
             }
         }
         if(_configurationFile != null && _configurationFile != "") {
             val configFile = File(_configurationFile)
-            if(false == (configFile.exists() && configFile.isFile && configFile.canRead())) {
+            if(!(configFile.exists() && configFile.isFile && configFile.canRead())) {
                 return ValidationInfo("Invalid configuration file")
             }
         }
@@ -165,7 +164,7 @@ fun JTextField.onChange(listener: (JTextFieldChangeEvent) -> Unit) {
     document.addDocumentListener(TextChangeListener(this, listener))
 }
 
-class TextChangeListener(val source: JTextField, val listener: (JTextFieldChangeEvent) -> Unit) : DocumentListener {
+class TextChangeListener(private val source: JTextField, private val listener: (JTextFieldChangeEvent) -> Unit) : DocumentListener {
     private var prev: String? = null
     private val app = ApplicationManager.getApplication()
 
@@ -180,7 +179,6 @@ class TextChangeListener(val source: JTextField, val listener: (JTextFieldChange
     }
 }
 
+@Suppress("unused", "CanBeParameter")
 class JTextFieldChangeEvent(val source: JTextField, val previous: String?, val current: String?) :
-        AWTEvent(source, TextEvent.TEXT_VALUE_CHANGED) {
-
-}
+        AWTEvent(source, TextEvent.TEXT_VALUE_CHANGED)

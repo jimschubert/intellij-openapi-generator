@@ -23,7 +23,6 @@ import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.ActionToolbar
 import com.intellij.openapi.actionSystem.DefaultActionGroup
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.project.Project
@@ -32,16 +31,18 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.openapi.ui.ValidationInfo
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.ui.*
+import com.intellij.ui.OnePixelSplitter
+import com.intellij.ui.ScrollPaneFactory
+import com.intellij.ui.TabbedPaneWrapper
 import com.intellij.ui.tabs.impl.JBTabsImpl
 import com.intellij.util.ui.JBUI
 import com.intellij.util.ui.tree.TreeUtil
-import org.openapitools.codegen.intellij.Message
+import io.swagger.parser.SwaggerParser
+import org.openapitools.codegen.CodegenConfig
+import org.openapitools.codegen.CodegenType
+import org.openapitools.codegen.DefaultGenerator
+import org.openapitools.codegen.config.CodegenConfigurator
 import org.openapitools.codegen.intellij.events.GenerationNotificationManager
-import io.swagger.codegen.CodegenConfig
-import io.swagger.codegen.CodegenType
-import io.swagger.codegen.DefaultGenerator
-import io.swagger.codegen.config.CodegenConfigurator
 import java.awt.BorderLayout
 import java.io.File
 import java.util.*
@@ -50,7 +51,7 @@ import javax.swing.*
 class GenerateDialog(val project: Project, val file: VirtualFile, val notificationManager: GenerationNotificationManager) : DialogWrapper(project) {
     companion object {
         private var generatorTypeMap: MutableMap<CodegenType, MutableList<CodegenConfig>> = mutableMapOf()
-        private val app = ApplicationManager.getApplication()
+//        private val app = ApplicationManager.getApplication()
     }
 
     private val logger = Logger.getInstance(this.javaClass)
@@ -69,7 +70,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
     private var currentConfigOptions: CodegenConfigOptions? = null
     private val langPanel = TabbedPaneWrapper(this.project) // TODO: Implement disposable on Dialog?
 
-    private val emptyBorder = IdeBorderFactory.createEmptyBorder()
+    private val emptyBorder = JBUI.Borders.empty()
     private val outputBrowse = TextFieldWithBrowseButton()
 
     init {
@@ -85,7 +86,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
             val extensions: List<CodegenConfig> = ServiceLoader.load(CodegenConfig::class.java, CodegenConfig::class.java.classLoader).toList()
             for (extension in extensions) {
                 if (!generatorTypeMap.containsKey(extension.tag)) {
-                    generatorTypeMap.put(extension.tag, mutableListOf(extension))
+                    generatorTypeMap[extension.tag] = mutableListOf(extension)
                 } else {
                     generatorTypeMap[extension.tag]!!.add(extension)
                 }
@@ -148,14 +149,14 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
 
     private fun createOptionsPanel() {
         optionsPanel = JPanel(BorderLayout())
-        optionsPanel.border = IdeBorderFactory.createEmptyBorder(0, 2, 0, 2)
+        optionsPanel.border = JBUI.Borders.empty(0, 2, 0, 2)
         optionsPanel.preferredSize = JBUI.size(800 - 185, 400)
     }
 
     // TODO: Form validation
     override fun doValidate(): ValidationInfo? {
         // valid Swagger file
-        io.swagger.parser.SwaggerParser().read(file.path) ?: return ValidationInfo("Specification file is invalid.", null)
+        SwaggerParser().readWithInfo(file.path) ?: return ValidationInfo("Specification file is invalid.", null)
 
         if(outputBrowse.text.isEmpty()){
             notificationManager.warn("Output directory is empty.")
@@ -188,7 +189,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
         return settingsPanel.doValidate() ?: super.doValidate()
     }
 
-    fun syncOptionsPanelOnChange(newPanel: JPanel): Unit {
+    private fun syncOptionsPanelOnChange(newPanel: JPanel) {
         optionsPanel.removeAll()
 
         val wrapper = JPanel(BorderLayout())
@@ -215,7 +216,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
                 langPanel.setTitleAt(0, currentConfigOptions?.config?.name)
                 tabPane?.tabs?.forEachIndexed { index, tabInfo -> if(index > 0) tabInfo.isHidden = false }
             } else {
-                langPanel.setTitleAt(0, "Swagger")
+                langPanel.setTitleAt(0, "OpenAPI")
                 tabPane?.tabs?.forEachIndexed { index, tabInfo -> if(index > 0) tabInfo.isHidden = true }
             }
             langPanel.selectedIndex = 0
@@ -232,13 +233,14 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
         val configurator = CodegenConfigurator.fromFile(settingsPanel.configurationFile) ?: CodegenConfigurator()
 
         configurator.inputSpec = file.path
-        configurator.lang = currentConfigOptions?.config?.javaClass?.typeName
+        configurator.generatorName = currentConfigOptions?.config?.javaClass?.typeName
         configurator.outputDir = outputBrowse.text
 
         configurator.instantiationTypes = instantiationTypesPanel.itemsAsMap()
         configurator.importMappings = importMappingsPanel.itemsAsMap()
         configurator.typeMappings = typeMappingsPanel.itemsAsMap()
         configurator.languageSpecificPrimitives = primitivesPanel.itemsAsSet()
+        @Suppress("USELESS_CAST")
         configurator.additionalProperties = additionalPropertiesPanel.itemsAsMap() as Map<String, Any>?
 
         configurator.isVerbose = settingsPanel.isVerbose
@@ -277,7 +279,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
             if(files.count() > 0) logger.debug("Generated files:")
             files.forEach { f -> logger.debug(f.canonicalPath) }
 
-            notificationManager.success(currentConfigOptions?.config?.name ?: configurator.lang, configurator.outputDir)
+            notificationManager.success(currentConfigOptions?.config?.name ?: configurator.generatorName, configurator.outputDir)
         } catch (t: Throwable) {
             // notificationManager logs the error here, and we don't want to duplicate
             notificationManager.failure(t)
@@ -302,7 +304,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
         leftPanel.add(createActionToolbar(tree).component, BorderLayout.NORTH)
         leftPanel.add(scrollPaneLeft, BorderLayout.CENTER)
 
-        panel.add(splitter, BorderLayout.CENTER);
+        panel.add(splitter, BorderLayout.CENTER)
         splitter.firstComponent = leftPanel
 
         // TABS

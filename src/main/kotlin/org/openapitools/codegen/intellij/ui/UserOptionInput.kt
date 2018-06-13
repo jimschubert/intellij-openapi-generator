@@ -17,6 +17,6 @@
 
 package org.openapitools.codegen.intellij.ui
 
-import io.swagger.codegen.CliOption
+import org.openapitools.codegen.CliOption
 
 data class UserOptionInput(val cliOption: CliOption, val userInput: () -> String?)

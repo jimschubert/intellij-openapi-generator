@@ -19,14 +19,14 @@ package org.openapitools.codegen.intellij.actions
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ui.Messages
-import io.swagger.codegen.DefaultCodegen
+import org.openapitools.codegen.DefaultCodegen
 
 class CodegenVersion : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val version = DefaultCodegen::class.java.`package`.implementationVersion
-        Messages.showMessageDialog(project, "Swagger Codegen ${version?:"unknown"}", "Information", Messages.getInformationIcon());
+        Messages.showMessageDialog(project, "OpenAPI Generator ${version?:"unknown"}", "Information", Messages.getInformationIcon());
 
     }
 }

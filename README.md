@@ -19,7 +19,7 @@ First, you'll need to [setup a development environment](http://www.jetbrains.org
 Then:
 
 ```
-./gradlew runIdea
+./gradlew runIde
 ```
 
 NOTE: When running locally, if changes don't appear in the sandbox instance you may have forgotten to update the plugin version in `gradle.properties`.

@@ -20,36 +20,35 @@ package org.openapitools.codegen.intellij.ui
 import com.intellij.icons.AllIcons
 import com.intellij.ui.components.JBLabel
 import com.intellij.util.ui.FormBuilder
-import io.swagger.codegen.CodegenConfig
+import org.openapitools.codegen.CodegenConfig
 import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JTextField
 
 internal class LanguageOptionsPanel(val language: CodegenConfig) {
     companion object {
-        private val _swaggerInfoPanel = org.openapitools.codegen.intellij.ui.SwaggerInfoPanel().component
+        private val swaggerInfoPanel = org.openapitools.codegen.intellij.ui.SwaggerInfoPanel().component
         val empty: JPanel
-            get() = _swaggerInfoPanel
+            get() = swaggerInfoPanel
     }
 
     private var _component: JPanel? = null
     val component: JPanel
         get() = _component ?: empty
 
-    private var optionTrackers: MutableList<UserOptionInput>
+    private var optionTrackers: MutableList<UserOptionInput> = mutableListOf()
     val userOptions: MutableList<UserOptionInput>
         get() = optionTrackers
 
     init {
         // TODO: Wrap JComponent instances to required fields
-        optionTrackers = mutableListOf<UserOptionInput>()
 
         var form = FormBuilder.createFormBuilder()
                 .setAlignLabelOnRight(false)
                 .setVerticalGap(4)
 
-        language.cliOptions().forEachIndexed { i, cliOption ->
-            val enums: Map<String, String> = cliOption.enum ?: mapOf<String, String>()
+        language.cliOptions().forEachIndexed { _, cliOption ->
+            val enums: Map<String, String> = cliOption.enum ?: mapOf()
             val optionComponent: JComponent = when {
             // TODO: Support any other cliOption types?
                 cliOption.type == "string" && enums.isEmpty() -> {
@@ -68,7 +67,7 @@ internal class LanguageOptionsPanel(val language: CodegenConfig) {
                     panel
                 }
                 cliOption.type == "boolean" -> {
-                    val panel = JTrueFalseRadioPanel(cliOption.default.toBoolean())
+                    val panel = JTrueFalseRadioPanel(cliOption.default!!.toBoolean())
 
                     optionTrackers.add(UserOptionInput(cliOption, { panel.value.toString() }))
 
@@ -84,7 +83,7 @@ internal class LanguageOptionsPanel(val language: CodegenConfig) {
                 }
             }
 
-            val label = JBLabel("${cliOption.opt}")
+            val label = JBLabel(cliOption.opt)
             if (cliOption.description != null) {
                 label.icon = AllIcons.Toolwindows.Documentation
                 label.toolTipText = cliOption.description

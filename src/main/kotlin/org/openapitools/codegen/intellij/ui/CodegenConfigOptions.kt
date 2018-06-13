@@ -17,6 +17,6 @@
 
 package org.openapitools.codegen.intellij.ui
 
-import io.swagger.codegen.CodegenConfig
+import org.openapitools.codegen.CodegenConfig
 
 data class CodegenConfigOptions(val config: CodegenConfig, val inputs: List<UserOptionInput>)

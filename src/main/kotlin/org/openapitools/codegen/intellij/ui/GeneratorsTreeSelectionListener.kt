@@ -17,7 +17,7 @@
 
 package org.openapitools.codegen.intellij.ui
 
-import io.swagger.codegen.CodegenConfig
+import org.openapitools.codegen.CodegenConfig
 import javax.swing.JPanel
 import javax.swing.event.TreeSelectionEvent
 import javax.swing.event.TreeSelectionListener
@@ -37,7 +37,7 @@ internal class GeneratorsTreeSelectionListener(val sync: (JPanel, CodegenConfigO
         val selected: TreePath = valuePath.first()
 
         val node = selected.lastPathComponent as GeneratorsTreeNode
-        val language: CodegenConfig = node.value as? CodegenConfig ?: return
+        val language: CodegenConfig = node.value ?: return
 
         val panel = LanguageOptionsPanel(language)
         sync(panel.component, CodegenConfigOptions(language, panel.userOptions))
