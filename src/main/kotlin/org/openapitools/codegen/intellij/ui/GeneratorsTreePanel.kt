@@ -21,8 +21,8 @@ import com.intellij.ui.ColoredTreeCellRenderer
 import com.intellij.ui.treeStructure.Tree
 import com.intellij.util.ui.UIUtil
 import com.intellij.util.ui.tree.TreeUtil
-import io.swagger.codegen.CodegenConfig
-import io.swagger.codegen.CodegenType
+import org.openapitools.codegen.CodegenConfig
+import org.openapitools.codegen.CodegenType
 import java.awt.BorderLayout
 import javax.swing.BorderFactory
 import javax.swing.JComponent

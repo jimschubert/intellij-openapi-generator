@@ -59,18 +59,18 @@
   <!--</extensions>-->
 
   <actions>
-    <group popup="true" text="Swagger" id="Swagger" description="Swagger">
+    <group popup="true" text="OpenAPI" id="OpenAPI" description="OpenAPI">
       <add-to-group group-id="CodeMenu" anchor="last"/>
     </group>
     <!-- Add your actions here -->
-    <action id="swaggercodegen.generate" class="org.openapitools.codegen.intellij.actions.CodegenGenerateAction"
-            text="Generate from Swagger" description="Generate code from a Swagger Definition">
-      <add-to-group group-id="Swagger" anchor="last"/>
+    <action id="generator.generate" class="org.openapitools.codegen.intellij.actions.CodegenGenerateAction"
+            text="Generate from Document" description="Generate code from an OpenAPI Document">
+      <add-to-group group-id="OpenAPI" anchor="last"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift alt G"/>
     </action>
-    <action id="swaggercodegen.version" class="org.openapitools.codegen.intellij.actions.CodegenVersion"
-        text="Codegen Version" description="Swagger Codegen Version">
-      <add-to-group group-id="Swagger" anchor="last"/>
+    <action id="generator.version" class="org.openapitools.codegen.intellij.actions.CodegenVersion"
+        text="Codegen Version" description="OpenAPI Generator Version">
+      <add-to-group group-id="OpenAPI" anchor="last"/>
     </action>
   </actions>
 

@@ -19,7 +19,7 @@ package org.openapitools.codegen.intellij.ui
 
 import com.intellij.ui.SimpleColoredComponent
 import com.intellij.ui.SimpleTextAttributes
-import io.swagger.codegen.CodegenConfig
+import org.openapitools.codegen.CodegenConfig
 import javax.swing.JTree
 import javax.swing.tree.DefaultMutableTreeNode
 

@@ -17,8 +17,8 @@
 
 package org.openapitools.codegen.intellij.ui
 
-import io.swagger.codegen.CodegenConfig
-import io.swagger.codegen.CodegenType
+import org.openapitools.codegen.CodegenConfig
+import org.openapitools.codegen.CodegenType
 
 internal class GeneratorsTreeRootNode(val generators: Map<CodegenType, List<CodegenConfig>>) : GeneratorsTreeNode(null) {
     init {

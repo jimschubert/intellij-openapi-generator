@@ -13,7 +13,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.3.1"
+    id "org.jetbrains.intellij" version "0.3.2"
 }
 
 apply plugin: 'java'
@@ -32,11 +32,11 @@ intellij {
     version '2017.3.3'
 //    plugins 'coverage'
     pluginName 'intellij_openapi_generator'
+    updateSinceUntilBuild true
 
 //    version ideaVersion
 //    downloadSources Boolean.valueOf(downloadIdeaSources)
 //
-    updateSinceUntilBuild false
     sandboxDirectory project.rootDir.canonicalPath + "/.sandbox"
 }
 
@@ -61,15 +61,11 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
-    compile "org.slf4j:slf4j-api:$slf4jVersion"
-    compile "org.slf4j:slf4j-ext:$slf4jVersion"
-    compile "org.slf4j:slf4j-simple:$slf4jVersion"
-    compile("io.swagger:swagger-codegen:$swaggerVersion") {
+    compile("org.openapitools:openapi-generator:$openapiGeneratorVersion") {
         exclude group: 'org.slf4j', module: 'slf4j-api'
         exclude group: 'org.slf4j', module: 'slf4j-ext'
         exclude group: 'org.slf4j', module: 'slf4j-simple'
     }
-    runtime group: 'io.swagger', name: 'swagger-codegen', version: "$swaggerVersion", transitive: true
 }
 
 idea {
@@ -80,7 +76,7 @@ idea {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.2'
+    gradleVersion = '4.7'
 }
 
 version = "${version}.$buildNumber"
