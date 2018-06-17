@@ -69,7 +69,7 @@
       <keyboard-shortcut keymap="$default" first-keystroke="shift alt G"/>
     </action>
     <action id="generator.version" class="org.openapitools.codegen.intellij.actions.CodegenVersion"
-        text="Codegen Version" description="OpenAPI Generator Version">
+        text="OpenAPI Generator Version" description="OpenAPI Generator Version">
       <add-to-group group-id="OpenAPI" anchor="last"/>
     </action>
   </actions>

@@ -269,6 +269,9 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
             configurator.addAdditionalProperty(userInput.cliOption.opt, userInput.userInput())
         }
 
+        // Required for internal ServiceLoader calls to operate as expected.
+        Thread.currentThread().contextClassLoader = javaClass.classLoader
+
         try {
             val files: MutableList<File> = DefaultGenerator()
                     .opts(configurator.toClientOptInput())
