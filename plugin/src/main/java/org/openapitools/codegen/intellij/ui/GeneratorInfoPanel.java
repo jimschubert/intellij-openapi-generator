@@ -19,9 +19,8 @@ package org.openapitools.codegen.intellij.ui;
 
 import javax.swing.*;
 
-public class SwaggerInfoPanel {
+public class GeneratorInfoPanel {
     private JPanel component;
-
 
     public JPanel getComponent() {
         return component;

@@ -27,9 +27,9 @@ import javax.swing.JTextField
 
 internal class LanguageOptionsPanel(val language: CodegenConfig) {
     companion object {
-        private val swaggerInfoPanel = org.openapitools.codegen.intellij.ui.SwaggerInfoPanel().component
+        private val generatorInfoPanel = GeneratorInfoPanel().component
         val empty: JPanel
-            get() = swaggerInfoPanel
+            get() = generatorInfoPanel
     }
 
     private var _component: JPanel? = null
