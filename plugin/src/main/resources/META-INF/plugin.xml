@@ -15,9 +15,9 @@
   -->
 
 <idea-plugin>
-  <id>main.kotlin.org.openapitools.codegen.intellij</id>
+  <id>main.kotlin.us.jimschubert.intellij.openapitools</id>
   <name>OpenAPI Generator</name>
-  <version>3.0.0</version>
+  <version>2.0.0</version>
   <vendor email="james.schubert@gmail.com" url="https://jimschubert.us">Jim Schubert</vendor>
 
   <description><![CDATA[
@@ -84,12 +84,12 @@
       <add-to-group group-id="CodeMenu" anchor="last"/>
     </group>
     <!-- Add your actions here -->
-    <action id="generator.generate" class="org.openapitools.codegen.intellij.actions.CodegenGenerateAction"
+    <action id="generator.generate" class="us.jimschubert.intellij.openapitools.actions.CodegenGenerateAction"
             text="Generate from Document" description="Generate code from an OpenAPI Document">
       <add-to-group group-id="OpenAPI" anchor="last"/>
       <keyboard-shortcut keymap="$default" first-keystroke="shift alt G"/>
     </action>
-    <action id="generator.version" class="org.openapitools.codegen.intellij.actions.CodegenVersion"
+    <action id="generator.version" class="us.jimschubert.intellij.openapitools.actions.CodegenVersion"
         text="OpenAPI Generator Version" description="OpenAPI Generator Version">
       <add-to-group group-id="OpenAPI" anchor="last"/>
     </action>
