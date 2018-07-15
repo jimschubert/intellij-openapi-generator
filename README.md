@@ -26,7 +26,7 @@ NOTE: When running locally, if changes don't appear in the sandbox instance you 
 
 # Usage
 
-Open a Specification YAML or JSON file in IntelliJ. Supported specifications are: Swagger 2.0/OpenAPI 2.0/OpenAPI 3.0. With the document active, navigate to Code -> Swagger -> Generate from Swagger.
+Open a Specification YAML or JSON file in IntelliJ. Supported specifications are: OpenAPI 2.0/OpenAPI 3.0. With the document active, navigate to Code -> OpenAPI -> Generate Document.
 
 Choose your desired generator and fill out options. Then, choose an output directory and generate.
 
@@ -36,4 +36,5 @@ This project is licensed under the Apache 2.0 license. See [./LICENSE](LICENSE) 
 
 Swagger® is a registered trademark of SmartBear Software, Inc.
 
-This project is not maintained by SmartBear Software, Inc.
+This project is not maintained by, or associated with, SmartBear Software, Inc.
+This project is not maintained by, or associated with, OpenAPI Initiative (OAI) in anyway.
