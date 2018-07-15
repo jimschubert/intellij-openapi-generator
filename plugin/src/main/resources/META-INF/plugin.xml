@@ -35,6 +35,7 @@
         <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v2.0.0">2.0.0</a></dt>
         <dd>
           <ul>
+            <li>Initial support for Open API v3.x specifications, thanks to openapi-generator</li>
             <li>Migrate from Swagger Codegen to OpenAPI Tools community fork</li>
             <li>Remove all Swagger images and references to Swagger specifications and SmartBear</li>
           </ul>
