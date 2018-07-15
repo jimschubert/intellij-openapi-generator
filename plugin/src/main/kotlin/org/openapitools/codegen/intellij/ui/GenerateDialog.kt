@@ -155,7 +155,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
 
     // TODO: Form validation
     override fun doValidate(): ValidationInfo? {
-        // valid Swagger file
+        // valid OpenAPI file
         SwaggerParser().readWithInfo(file.path) ?: return ValidationInfo("Specification file is invalid.", null)
 
         if(outputBrowse.text.isEmpty()){
