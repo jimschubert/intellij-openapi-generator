@@ -28,6 +28,8 @@
       <br/><br/>
       The <b>OpenAPI Generator</b> plugin allows you to generate client, server, or documentation code
       from your OpenAPI specifications <em>within your IDE</em>.
+      <br/><br/>
+      <a href="https://paypal.me/JamesSchubert">beer $$</a>
     ]]></description>
 
   <change-notes><![CDATA[
@@ -35,8 +37,9 @@
         <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v2.0.0">2.0.0</a></dt>
         <dd>
           <ul>
-            <li>Initial support for Open API v3.x specifications, thanks to openapi-generator</li>
+            <li>Plugin renamed from Swagger Codegen to OpenAPI Generator</li>
             <li>Migrate from Swagger Codegen to OpenAPI Tools community fork</li>
+            <li>Initial support for Open API v3.x specifications, thanks to openapi-generator</li>
             <li>Remove all Swagger images and references to Swagger specifications and SmartBear</li>
           </ul>
         </dd>
