@@ -26,7 +26,7 @@ NOTE: When running locally, if changes don't appear in the sandbox instance you 
 
 # Usage
 
-Open a Specification YAML or JSON file in IntelliJ. Supported specifications are: OpenAPI 2.0/OpenAPI 3.0. With the document active, navigate to Code -> OpenAPI -> Generate Document.
+Open a Specification YAML or JSON file in IntelliJ. Supported specifications are: OpenAPI 2.0/OpenAPI 3.0. With the document active, navigate to Code -> OpenAPI -> Generate from Document.
 
 Choose your desired generator and fill out options. Then, choose an output directory and generate.
 
