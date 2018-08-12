@@ -43,7 +43,9 @@ intellij {
     version '2017.3.3'
 //    plugins 'coverage'
     pluginName 'intellij_openapi_generator'
-    updateSinceUntilBuild true
+    // This will replace the version defined in plugin.xml to whatever version is defined above as 'version'
+    // (see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html)
+    updateSinceUntilBuild false
 
 //    version ideaVersion
 //    downloadSources Boolean.valueOf(downloadIdeaSources)

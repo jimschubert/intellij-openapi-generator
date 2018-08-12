@@ -17,7 +17,7 @@
 <idea-plugin>
   <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
   <name>OpenAPI Generator</name>
-  <version>2.0.1</version>
+  <version>2.1.0</version>
   <vendor email="james.schubert@gmail.com" url="https://jimschubert.us">Jim Schubert</vendor>
 
   <description><![CDATA[
@@ -34,6 +34,12 @@
 
   <change-notes><![CDATA[
       <dl>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v2.0.1">2.1.0</a></dt>
+        <dd>
+          <ul>
+            <li>Fix minimum supported IDE products to 2016.2 (162)</li>
+          </ul>
+        </dd>
         <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v2.0.1">2.0.1</a></dt>
         <dd>
           <ul>
@@ -49,36 +55,12 @@
             <li>Remove all Swagger images and references to Swagger specifications and SmartBear</li>
           </ul>
         </dd>
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v1.0.0">1.0.0</a></dt>
-        <dd>Major Release: Swagger Codegen 2.3.1</dd>
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.1.0">0.1.0</a></dt>
-        <dd>Update to Swagger Codegen 2.2.3</dd>
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.0.5">0.0.5</a></dt>
-        <dd>
-          <ul>
-            <li>UX: Display balloon on successful/failed generation.</li>
-            <li>Fix possible 'empty language' panel before language selection.</li>
-            <li>Fix <a href="https://github.com/jimschubert/intellij-openapi-generator/issues/4">missing swagger input or config</a> issue.</li>
-          </ul>
-        </dd>
-
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.0.4">0.0.4</a></dt>
-        <dd>Update to Swagger Codegen 2.2.2, with support for JSON files and newest idea version</dd>
-
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.0.3">0.0.3</a></dt>
-        <dd>Update to Swagger Codegen 2.2.1</dd>
-
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.0.2">0.0.2</a></dt>
-        <dd>Include notice: Swagger® is a registered trademark of SmartBear Software, Inc.</dd>
-
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v0.0.1">0.0.1</a></dt>
-        <dd>Magic</dd>
       </dl>
     ]]>
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="143" />
+  <idea-version since-build="162" />
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
