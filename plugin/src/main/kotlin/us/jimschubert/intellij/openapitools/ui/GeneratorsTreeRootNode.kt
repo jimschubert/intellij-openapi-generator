@@ -19,7 +19,7 @@ package us.jimschubert.intellij.openapitools.ui
 import org.openapitools.codegen.CodegenConfig
 import org.openapitools.codegen.CodegenType
 
-internal class GeneratorsTreeRootNode(val generators: Map<CodegenType, List<CodegenConfig>>) : GeneratorsTreeNode(null) {
+internal class GeneratorsTreeRootNode(generators: Map<CodegenType, List<CodegenConfig>>) : GeneratorsTreeNode(null) {
     init {
         for (generator in generators) {
             val genNode = GeneratorsTreeNode(generator.key.toString())

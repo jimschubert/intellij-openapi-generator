@@ -22,11 +22,13 @@ import javax.swing.JPanel
 import javax.swing.JRadioButton
 
 internal class JTrueFalseRadioPanel(
-        val defaultValue: Boolean,
-        val trueText: String = "True",
-        val falseText: String = "False"
+        defaultValue: Boolean,
+        trueText: String = "True",
+        falseText: String = "False"
 ) : JPanel(GridBagLayout()) {
+    @Suppress("PrivatePropertyName")
     private val TRUE = "TRUE"
+    @Suppress("PrivatePropertyName")
     private val FALSE = "FALSE"
     private val trueButton: JRadioButton = JRadioButton(trueText)
     private val falseButton: JRadioButton = JRadioButton(falseText)

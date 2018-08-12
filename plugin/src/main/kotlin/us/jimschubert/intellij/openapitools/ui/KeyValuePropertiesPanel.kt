@@ -21,15 +21,14 @@ import us.jimschubert.intellij.openapitools.Message
 import java.awt.BorderLayout
 import javax.swing.JPanel
 
-internal class KeyValuePropertiesPanel(val key: String = "Key", val value: String = "Value") : JPanel(BorderLayout()) {
-    private val _items: MutableList<SimpleKeyValueItem>
+internal class KeyValuePropertiesPanel(key: String = "Key", val value: String = "Value") : JPanel(BorderLayout()) {
+    private val _items: MutableList<SimpleKeyValueItem> = mutableListOf()
     private val _editor: ValidatingTableEditor<SimpleKeyValueItem>
 
     val items: List<SimpleKeyValueItem>
         get() = _items.toList()
 
     init {
-        _items = mutableListOf<SimpleKeyValueItem>()
         _editor = object : ValidatingTableEditor<SimpleKeyValueItem>() {
             override fun createItem(): SimpleKeyValueItem? = SimpleKeyValueItem("", "")
 
@@ -38,13 +37,13 @@ internal class KeyValuePropertiesPanel(val key: String = "Key", val value: Strin
             override fun validate(item: SimpleKeyValueItem?): String? {
                 when {
                     item == null -> {
-                        return us.jimschubert.intellij.openapitools.Message of "panel.key-value-properties.invalid-empty"
+                        return Message of "panel.key-value-properties.invalid-empty"
                     }
                     item.key == "" -> {
-                        return us.jimschubert.intellij.openapitools.Message of "panel.key-value-properties.invalid-key"
+                        return Message of "panel.key-value-properties.invalid-key"
                     }
                     item.value == "" -> {
-                        return us.jimschubert.intellij.openapitools.Message of "panel.key-value-properties.invalid-value"
+                        return Message of "panel.key-value-properties.invalid-value"
                     }
                 }
 

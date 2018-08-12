@@ -31,7 +31,7 @@ import javax.swing.tree.DefaultMutableTreeNode
 import javax.swing.tree.DefaultTreeModel
 import javax.swing.tree.TreeSelectionModel
 
-internal class GeneratorsTreePanel(val generators: Map<CodegenType, List<CodegenConfig>>) : JComponent() {
+internal class GeneratorsTreePanel(private val generators: Map<CodegenType, List<CodegenConfig>>) : JComponent() {
 
     private val myTreeModel: DefaultTreeModel = buildModel()
     private val _genTypeTree: Tree = Tree(DefaultTreeModel(DefaultMutableTreeNode()))
@@ -69,11 +69,11 @@ internal class GeneratorsTreePanel(val generators: Map<CodegenType, List<Codegen
         return DefaultTreeModel(node)
     }
 
-    fun addNodeChangeListener(listener: GeneratorsTreeSelectionListener): Unit {
+    fun addNodeChangeListener(listener: GeneratorsTreeSelectionListener) {
         genTypeTree.addTreeSelectionListener(listener)
     }
 
-    private class Renderer() : ColoredTreeCellRenderer() {
+    private class Renderer : ColoredTreeCellRenderer() {
         init {
             border = BorderFactory.createEmptyBorder()
             isOpaque = false

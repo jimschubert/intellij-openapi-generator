@@ -21,8 +21,8 @@ import java.util.*
 
 internal class Message {
     companion object {
-        const val bundleName = "messages.GeneratorBundle"
-        val bundle = ResourceBundle.getBundle(bundleName)
+        private const val bundleName = "messages.GeneratorBundle"
+        private val bundle: ResourceBundle = ResourceBundle.getBundle(bundleName)
         infix fun of(key: String): String {
             return CommonBundle.message(bundle, key, listOf<Any>())
         }
@@ -31,7 +31,7 @@ internal class Message {
             return CommonBundle.message(bundle, key, *params)
         }
 
-        @Suppress("NOTHING_TO_INLINE")
+        @Suppress("NOTHING_TO_INLINE", "unused")
         inline fun message(key: String, vararg params: Any) : String = Message.of(key, params)
     }
 }

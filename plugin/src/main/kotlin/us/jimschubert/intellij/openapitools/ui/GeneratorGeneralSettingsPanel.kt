@@ -24,6 +24,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.openapi.ui.ValidationInfo
 import com.intellij.ui.UIBundle
 import com.intellij.util.ui.FormBuilder
+import us.jimschubert.intellij.openapitools.Message
 import java.awt.AWTEvent
 import java.awt.event.TextEvent
 import java.io.File
@@ -129,8 +130,9 @@ internal class GeneratorGeneralSettingsPanel : Validatable {
 
     private fun browse(bundleKey: String?, descriptor: FileChooserDescriptor, listener: (JTextFieldChangeEvent) -> Unit): TextFieldWithBrowseButton {
         val element = TextFieldWithBrowseButton()
+        @Suppress("InvalidBundleOrProperty")
         element.addBrowseFolderListener(
-                us.jimschubert.intellij.openapitools.Message of (bundleKey ?: UIBundle.message("file.chooser.default.title")),
+                Message of (bundleKey ?: UIBundle.message("file.chooser.default.title")),
                 null,
                 null,
                 descriptor
@@ -179,5 +181,5 @@ class TextChangeListener(private val source: JTextField, private val listener: (
 }
 
 @Suppress("unused", "CanBeParameter")
-class JTextFieldChangeEvent(val source: JTextField, val previous: String?, val current: String?) :
+class JTextFieldChangeEvent(private val source: JTextField, val previous: String?, val current: String?) :
         AWTEvent(source, TextEvent.TEXT_VALUE_CHANGED)

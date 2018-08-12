@@ -28,6 +28,7 @@ class GenerationNotificationManager {
         logger.warn(message)
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun error(message: String){
         logger.error(message)
     }
@@ -59,7 +60,7 @@ class GenerationNotificationManager {
     }
 
     companion object {
-        private val GROUP = "OpenAPI"
+        private const val GROUP = "OpenAPI"
         private var notificationGroup: NotificationGroup
         init {
             notificationGroup = NotificationGroup(GROUP, NotificationDisplayType.BALLOON, true)

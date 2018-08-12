@@ -21,15 +21,14 @@ import us.jimschubert.intellij.openapitools.Message
 import java.awt.BorderLayout
 import javax.swing.JPanel
 
-internal class ValuePropertiesPanel(val header: String = "Value") : JPanel(BorderLayout()) {
-    private val _items: MutableList<SimpleValueItem>
+internal class ValuePropertiesPanel(header: String = "Value") : JPanel(BorderLayout()) {
+    private val _items: MutableList<SimpleValueItem> = mutableListOf()
     private val _editor: ValidatingTableEditor<SimpleValueItem>
 
     val items: List<SimpleValueItem>
         get() = _items.toList()
 
     init {
-        _items = mutableListOf<SimpleValueItem>()
         _editor = object : ValidatingTableEditor<SimpleValueItem>() {
             override fun createItem(): SimpleValueItem? = SimpleValueItem("")
 
@@ -38,10 +37,10 @@ internal class ValuePropertiesPanel(val header: String = "Value") : JPanel(Borde
             override fun validate(item: SimpleValueItem?): String? {
                 when {
                     item == null -> {
-                        return us.jimschubert.intellij.openapitools.Message of "panel.value-properties.invalid-empty"
+                        return Message of "panel.value-properties.invalid-empty"
                     }
                     item.value == "" -> {
-                        return us.jimschubert.intellij.openapitools.Message of "panel.value-properties.invalid-value"
+                        return Message of "panel.value-properties.invalid-value"
                     }
                 }
 

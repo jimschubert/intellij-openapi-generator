@@ -53,7 +53,7 @@ internal class LanguageOptionsPanel(val language: CodegenConfig) {
                 cliOption.type == "string" && enums.isEmpty() -> {
                     val text = JTextField(cliOption.default)
 
-                    optionTrackers.add(UserOptionInput(cliOption, { text.text }))
+                    optionTrackers.add(UserOptionInput(cliOption) { text.text })
 
                     text
                 }
@@ -61,14 +61,14 @@ internal class LanguageOptionsPanel(val language: CodegenConfig) {
                     val options = enums.map { us.jimschubert.intellij.openapitools.ui.CliConstrainedOption.fromKvp(it) }.toList()
                     val panel = us.jimschubert.intellij.openapitools.ui.ConstrainedOptionsPanel(options, cliOption.default)
 
-                    optionTrackers.add(UserOptionInput(cliOption, { panel.value }))
+                    optionTrackers.add(UserOptionInput(cliOption) { panel.value })
 
                     panel
                 }
                 cliOption.type == "boolean" -> {
                     val panel = JTrueFalseRadioPanel(cliOption.default!!.toBoolean())
 
-                    optionTrackers.add(UserOptionInput(cliOption, { panel.value.toString() }))
+                    optionTrackers.add(UserOptionInput(cliOption) { panel.value.toString() })
 
                     panel
                 }
@@ -76,7 +76,7 @@ internal class LanguageOptionsPanel(val language: CodegenConfig) {
                     println("${cliOption.opt} is type ${cliOption.type}")
                     val text = JTextField(cliOption.default)
 
-                    optionTrackers.add(UserOptionInput(cliOption, { text.text }))
+                    optionTrackers.add(UserOptionInput(cliOption) { text.text })
 
                     text
                 }

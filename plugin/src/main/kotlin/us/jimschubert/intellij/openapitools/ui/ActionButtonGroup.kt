@@ -37,7 +37,7 @@ internal class ActionButtonGroup : ButtonGroup() {
         super.add(b)
     }
 
-    fun addActionListener(listener: ActionListener) {
+    private fun addActionListener(listener: ActionListener) {
         boundListeners.add(listener.javaClass, listener)
     }
 
@@ -45,11 +45,12 @@ internal class ActionButtonGroup : ButtonGroup() {
         addActionListener(Listener(this, anonymousListener))
     }
 
+    @Suppress("unused")
     fun removeActionListener(listener: ActionListener) {
         boundListeners.remove(listener.javaClass, listener)
     }
 
-    private fun onChange(e: ActionEvent?): Unit {
+    private fun onChange(e: ActionEvent?) {
         val command = e?.actionCommand ?: ""
         val evt = ActionEvent(this, ActionEvent.ACTION_PERFORMED, command)
         boundListeners.listenerList.forEach {
@@ -59,7 +60,7 @@ internal class ActionButtonGroup : ButtonGroup() {
         }
     }
 
-    private class Listener(val owner: ActionButtonGroup, val callback: (ActionEvent?) -> Unit) : ActionListener {
+    private class Listener(@Suppress("unused") val owner: ActionButtonGroup, val callback: (ActionEvent?) -> Unit) : ActionListener {
         override fun actionPerformed(e: ActionEvent?) {
             callback.invoke(e)
         }
