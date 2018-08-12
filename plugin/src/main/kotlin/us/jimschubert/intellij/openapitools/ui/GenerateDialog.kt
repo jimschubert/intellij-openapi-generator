@@ -215,7 +215,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
                 langPanel.setTitleAt(0, currentConfigOptions?.config?.name)
                 tabPane?.tabs?.forEachIndexed { index, tabInfo -> if(index > 0) tabInfo.isHidden = false }
             } else {
-                langPanel.setTitleAt(0, "OpenAPI")
+                langPanel.setTitleAt(0, "OpenAPI Generator")
                 tabPane?.tabs?.forEachIndexed { index, tabInfo -> if(index > 0) tabInfo.isHidden = true }
             }
             langPanel.selectedIndex = 0
