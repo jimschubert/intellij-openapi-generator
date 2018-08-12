@@ -24,13 +24,13 @@ import us.jimschubert.intellij.openapitools.ui.GenerateDialog
 
 class CodegenGenerateAction : AnAction() {
 
-    private val notificationManager: us.jimschubert.intellij.openapitools.events.GenerationNotificationManager = us.jimschubert.intellij.openapitools.events.GenerationNotificationManager()
+    private val notificationManager: GenerationNotificationManager = GenerationNotificationManager()
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val file = e.getData(PlatformDataKeys.VIRTUAL_FILE) ?: return
 
-        us.jimschubert.intellij.openapitools.ui.GenerateDialog(project, file, notificationManager).show()
+        GenerateDialog(project, file, notificationManager).show()
     }
 
     override fun update(e: AnActionEvent?) {

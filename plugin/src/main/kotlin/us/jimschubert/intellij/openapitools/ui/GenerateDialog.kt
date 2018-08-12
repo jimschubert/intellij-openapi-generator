@@ -41,13 +41,15 @@ import org.openapitools.codegen.CodegenConfig
 import org.openapitools.codegen.CodegenType
 import org.openapitools.codegen.DefaultGenerator
 import org.openapitools.codegen.config.CodegenConfigurator
+import us.jimschubert.intellij.openapitools.Message
+import us.jimschubert.intellij.openapitools.Message.Companion
 import us.jimschubert.intellij.openapitools.events.GenerationNotificationManager
 import java.awt.BorderLayout
 import java.io.File
 import java.util.*
 import javax.swing.*
 
-class GenerateDialog(val project: Project, val file: VirtualFile, val notificationManager: us.jimschubert.intellij.openapitools.events.GenerationNotificationManager) : DialogWrapper(project) {
+class GenerateDialog(private val project: Project, val file: VirtualFile, private val notificationManager: GenerationNotificationManager) : DialogWrapper(project) {
     companion object {
         private var generatorTypeMap: MutableMap<CodegenType, MutableList<CodegenConfig>> = mutableMapOf()
 //        private val app = ApplicationManager.getApplication()
@@ -91,9 +93,9 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
                 }
             }
         }
-        title = us.jimschubert.intellij.openapitools.Message of "dialog.generate.title"
-        setOKButtonText(us.jimschubert.intellij.openapitools.Message of "dialog.generate.ok")
-        setCancelButtonText(us.jimschubert.intellij.openapitools.Message of "dialog.generate.cancel")
+        title = Message of "dialog.generate.title"
+        setOKButtonText(Message of "dialog.generate.ok")
+        setCancelButtonText(Message of "dialog.generate.cancel")
 
         createOptionsPanel()
         createTree()
@@ -110,9 +112,9 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
 
     private fun createPrimitivesPanel() {
         primitivesPanel = ValuePropertiesPanel(
-                us.jimschubert.intellij.openapitools.Message of "panel.primitive-types.value-column"
+                Message of "panel.primitive-types.value-column"
         )
-        primitivesPanel.setEmptyMessage(us.jimschubert.intellij.openapitools.Message of "panel.primitive-types.empty-message")
+        primitivesPanel.setEmptyMessage(Message of "panel.primitive-types.empty-message")
     }
 
     private fun createTypeMappingsPanel() {
@@ -120,30 +122,30 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
                 us.jimschubert.intellij.openapitools.Message of "panel.type-mappings.key-column",
                 us.jimschubert.intellij.openapitools.Message of "panel.type-mappings.value-column"
         )
-        typeMappingsPanel.setEmptyMessage(us.jimschubert.intellij.openapitools.Message of "panel.type-mappings.empty-message")
+        typeMappingsPanel.setEmptyMessage(Message of "panel.type-mappings.empty-message")
     }
 
     private fun createImportMappingsPanel() {
         importMappingsPanel = KeyValuePropertiesPanel(
-                us.jimschubert.intellij.openapitools.Message of "panel.import-mappings.key-column",
-                us.jimschubert.intellij.openapitools.Message of "panel.import-mappings.value-column"
+                Message of "panel.import-mappings.key-column",
+                Message of "panel.import-mappings.value-column"
         )
-        importMappingsPanel.setEmptyMessage(us.jimschubert.intellij.openapitools.Message of "panel.import-mappings.empty-message")
+        importMappingsPanel.setEmptyMessage(Message of "panel.import-mappings.empty-message")
     }
 
     private fun createAdditionalPropertiesPanel() {
         additionalPropertiesPanel = KeyValuePropertiesPanel(
-                us.jimschubert.intellij.openapitools.Message of "panel.additional-properties.key-column"
+                Message of "panel.additional-properties.key-column"
         )
-        additionalPropertiesPanel.setEmptyMessage(us.jimschubert.intellij.openapitools.Message of "panel.additional-properties.empty-message")
+        additionalPropertiesPanel.setEmptyMessage(Message of "panel.additional-properties.empty-message")
     }
 
     private fun createInstantiationTypesPanel() {
         instantiationTypesPanel = KeyValuePropertiesPanel(
-                us.jimschubert.intellij.openapitools.Message of "panel.instantiation-types.key-column",
-                us.jimschubert.intellij.openapitools.Message of "panel.instantiation-types.value-column"
+                Message of "panel.instantiation-types.key-column",
+                Message of "panel.instantiation-types.value-column"
         )
-        instantiationTypesPanel.setEmptyMessage(us.jimschubert.intellij.openapitools.Message of "panel.instantiation-types.empty-message")
+        instantiationTypesPanel.setEmptyMessage(Message of "panel.instantiation-types.empty-message")
     }
 
     private fun createOptionsPanel() {
@@ -208,7 +210,7 @@ class GenerateDialog(val project: Project, val file: VirtualFile, val notificati
 
     private fun createTree() {
         tree = GeneratorsTreePanel(generatorTypeMap)
-        tree.addNodeChangeListener(GeneratorsTreeSelectionListener { p: JPanel, configOptions: us.jimschubert.intellij.openapitools.ui.CodegenConfigOptions? ->
+        tree.addNodeChangeListener(GeneratorsTreeSelectionListener { p: JPanel, configOptions: CodegenConfigOptions? ->
             currentConfigOptions = configOptions
             val tabPane = langPanel.component.components.first() as? JBTabsImpl
             if (currentConfigOptions != null) {

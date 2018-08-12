@@ -21,9 +21,9 @@ import java.awt.GridBagLayout
 import javax.swing.JPanel
 import javax.swing.JRadioButton
 
-internal class ConstrainedOptionsPanel(val options: List<us.jimschubert.intellij.openapitools.ui.CliConstrainedOption>, val default: String? = null) : JPanel(GridBagLayout()) {
+internal class ConstrainedOptionsPanel(options: List<CliConstrainedOption>, private val default: String? = null) : JPanel(GridBagLayout()) {
     private val defaultIdentifier = "<default>"
-    private val group = us.jimschubert.intellij.openapitools.ui.ActionButtonGroup()
+    private val group: ActionButtonGroup = ActionButtonGroup()
 
     init {
         // set width
