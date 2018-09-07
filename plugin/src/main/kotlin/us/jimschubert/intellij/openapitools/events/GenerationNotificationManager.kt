@@ -16,20 +16,22 @@
 
 package us.jimschubert.intellij.openapitools.events
 
+import com.intellij.ide.actions.ShowFilePathAction
 import com.intellij.notification.*
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.ProjectManager
+import java.io.File
 
 class GenerationNotificationManager {
     private val logger = Logger.getInstance(this.javaClass)
 
-    fun warn(message: String){
+    fun warn(message: String) {
         logger.warn(message)
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun error(message: String){
+    fun error(message: String) {
         logger.error(message)
     }
 
@@ -38,14 +40,23 @@ class GenerationNotificationManager {
         val title = us.jimschubert.intellij.openapitools.Message.of("notification.generation.success.title", GROUP)
         val content = us.jimschubert.intellij.openapitools.Message.of("notification.generation.success.content", lang, outputDir)
 
+        // Use a NotificationAction here rather than a listener with hyperlinks.
+        // This allows "Open" link to be functional in Event Log, and that link will "expire" once it is clicked in the Event Log.
+        val notification = notificationGroup.createNotification(title, content, NotificationType.INFORMATION, null)
+        val openAction = NotificationAction.create("Open") {
+            ShowFilePathAction.openFile(File(outputDir))
+            notification.expire()
+        }
+        notification.addAction(openAction)
+
         // Must invokeLater, otherwise Notification only displays after dialogs or other disposables are disposed
         // see https://intellij-support.jetbrains.com/hc/en-us/community/posts/206766265-Notification-Balloon-not-shown-weird-scenario
         ApplicationManager.getApplication().executeOnPooledThread {
-            Notifications.Bus.notify(notificationGroup.createNotification(title, content, NotificationType.INFORMATION, null), project)
+            Notifications.Bus.notify(notification, project)
         }
     }
 
-    fun failure(t: Throwable? = null){
+    fun failure(t: Throwable? = null) {
         val project = ProjectManager.getInstance().openProjects.firstOrNull()
         val title = us.jimschubert.intellij.openapitools.Message.of("notification.generation.failure.title", GROUP)
 
@@ -62,6 +73,7 @@ class GenerationNotificationManager {
     companion object {
         private const val GROUP = "OpenAPI"
         private var notificationGroup: NotificationGroup
+
         init {
             notificationGroup = NotificationGroup(GROUP, NotificationDisplayType.BALLOON, true)
         }

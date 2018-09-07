@@ -17,7 +17,7 @@
 <idea-plugin>
   <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
   <name>OpenAPI Generator</name>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
   <vendor email="james.schubert@gmail.com" url="https://jimschubert.us">Jim Schubert</vendor>
 
   <description><![CDATA[
@@ -34,6 +34,12 @@
 
   <change-notes><![CDATA[
       <dl>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v2.1.1">2.1.1</a></dt>
+        <dd>
+          <ul>
+            <li>Bump OpenAPI Generator version to 3.2.3</li>
+          </ul>
+        </dd>
         <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v2.0.1">2.1.0</a></dt>
         <dd>
           <ul>

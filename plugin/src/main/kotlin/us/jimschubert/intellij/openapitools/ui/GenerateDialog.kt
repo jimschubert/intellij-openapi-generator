@@ -42,7 +42,6 @@ import org.openapitools.codegen.CodegenType
 import org.openapitools.codegen.DefaultGenerator
 import org.openapitools.codegen.config.CodegenConfigurator
 import us.jimschubert.intellij.openapitools.Message
-import us.jimschubert.intellij.openapitools.Message.Companion
 import us.jimschubert.intellij.openapitools.events.GenerationNotificationManager
 import java.awt.BorderLayout
 import java.io.File
@@ -278,7 +277,7 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
                     .opts(configurator.toClientOptInput())
                     .generate()
 
-            logger.debug("Generated contents can be found in ${outputBrowse.text}.")
+            logger.info("Generated ${configurator.generatorName} output in ${outputBrowse.text}.")
 
             if(files.count() > 0) logger.debug("Generated files:")
             files.forEach { f -> logger.debug(f.canonicalPath) }
