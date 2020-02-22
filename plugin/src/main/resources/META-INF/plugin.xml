@@ -34,6 +34,12 @@
 
   <change-notes><![CDATA[
       <dl>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v4.0.0">4.0.0</a></dt>
+        <dd>
+          <ul>
+            <li>Bump OpenAPI Generator version to 4.2.3</li>
+          </ul>
+        </dd>
         <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v3.0.0">3.0.0</a></dt>
         <dd>
           <ul>

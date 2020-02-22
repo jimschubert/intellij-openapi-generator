@@ -21,7 +21,6 @@ import com.intellij.notification.*
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.ProjectManager
-import java.io.File
 import java.nio.file.Paths
 
 class GenerationNotificationManager {
