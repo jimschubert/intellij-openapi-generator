@@ -19,6 +19,12 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/*.gradle') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
