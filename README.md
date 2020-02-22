@@ -1,6 +1,6 @@
 # OpenAPI Generator plugin for IntelliJ IDEs
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/jimschubert/intellij-openapi-generator/Assemble%20Plugin?label=Build%20Status&style=for-the-badge)
+![Assemble Plugin](https://github.com/jimschubert/intellij-openapi-generator/workflows/Assemble%20Plugin/badge.svg)
 
 This plugin allows for a sort of _spec_ driven development.
 
