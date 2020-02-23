@@ -21,7 +21,7 @@ import com.intellij.notification.*
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.ProjectManager
-import java.io.File
+import java.nio.file.Paths
 
 class GenerationNotificationManager {
     private val logger = Logger.getInstance(this.javaClass)
@@ -44,7 +44,7 @@ class GenerationNotificationManager {
         // This allows "Open" link to be functional in Event Log, and that link will "expire" once it is clicked in the Event Log.
         val notification = notificationGroup.createNotification(title, content, NotificationType.INFORMATION, null)
         val openAction = NotificationAction.create("Open") {
-            ShowFilePathAction.openFile(File(outputDir))
+            ShowFilePathAction.openFile(Paths.get(outputDir).toAbsolutePath().toFile())
             notification.expire()
         }
         notification.addAction(openAction)

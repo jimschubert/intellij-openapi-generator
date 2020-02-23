@@ -17,7 +17,7 @@
 <idea-plugin>
   <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
   <name>OpenAPI Generator</name>
-  <version>3.0.0</version>
+  <version>4.0.0</version>
   <vendor email="james.schubert@gmail.com" url="https://jimschubert.us">Jim Schubert</vendor>
 
   <description><![CDATA[
@@ -26,14 +26,20 @@
       <a href="https://github.com/jimschubert/intellij-openapi-generator">GitHub</a>&nbsp;
       <a href="https://github.com/jimschubert/intellij-openapi-generator/issues">Issues</a>
       <br/><br/>
-      The <b>OpenAPI Generator</b> plugin allows you to generate client, server, or documentation code
+      The <a href="https://openapi-generator.tech/">OpenAPI Generator</a> plugin allows you to generate client, server, or documentation code
       from your OpenAPI specifications <em>within your IDE</em>.
       <br/><br/>
-      <a href="https://www.patreon.com/jimschubert">Patreon: jimschubert</a>
+      <a href="https://github.com/sponsors/jimschubert">GitHub Sponsors: jimschubert</a>
     ]]></description>
 
   <change-notes><![CDATA[
       <dl>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v4.0.0">4.0.0</a></dt>
+        <dd>
+          <ul>
+            <li>Bump OpenAPI Generator version to 4.2.3</li>
+          </ul>
+        </dd>
         <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v3.0.0">3.0.0</a></dt>
         <dd>
           <ul>

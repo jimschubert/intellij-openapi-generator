@@ -45,6 +45,7 @@ import us.jimschubert.intellij.openapitools.Message
 import us.jimschubert.intellij.openapitools.events.GenerationNotificationManager
 import java.awt.BorderLayout
 import java.io.File
+import java.lang.IllegalStateException
 import java.util.*
 import javax.swing.*
 
@@ -232,30 +233,31 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
 
         val configurator = CodegenConfigurator.fromFile(settingsPanel.configurationFile) ?: CodegenConfigurator()
 
-        configurator.inputSpec = file.path
-        configurator.generatorName = currentConfigOptions?.config?.javaClass?.typeName
-        configurator.outputDir = outputBrowse.text
+        val generatorName = currentConfigOptions?.config?.javaClass?.typeName ?: throw IllegalStateException("Configuration options is unexpectedly inaccessible")
+        configurator.setInputSpec(file.path)
+        configurator.setGeneratorName(generatorName)
+        configurator.setOutputDir(outputBrowse.text)
 
-        configurator.instantiationTypes = instantiationTypesPanel.itemsAsMap()
-        configurator.importMappings = importMappingsPanel.itemsAsMap()
-        configurator.typeMappings = typeMappingsPanel.itemsAsMap()
-        configurator.languageSpecificPrimitives = primitivesPanel.itemsAsSet()
+        configurator.setInstantiationTypes(instantiationTypesPanel.itemsAsMap())
+        configurator.setImportMappings(importMappingsPanel.itemsAsMap())
+        configurator.setTypeMappings(typeMappingsPanel.itemsAsMap())
+        configurator.setLanguageSpecificPrimitives(primitivesPanel.itemsAsSet())
         @Suppress("USELESS_CAST")
-        configurator.additionalProperties = additionalPropertiesPanel.itemsAsMap() as Map<String, Any>?
+        configurator.setAdditionalProperties(additionalPropertiesPanel.itemsAsMap() as Map<String, Any>?)
 
-        configurator.isVerbose = settingsPanel.isVerbose
-        configurator.isSkipOverwrite = settingsPanel.skipOverwrite
+        configurator.setVerbose(settingsPanel.isVerbose)
+        configurator.setSkipOverwrite(settingsPanel.skipOverwrite)
 
         if(settingsPanel.templateDirectory != null)
-            configurator.templateDir = settingsPanel.templateDirectory
+            configurator.setTemplateDir(settingsPanel.templateDirectory)
 
-        configurator.library = settingsPanel.library
-        configurator.invokerPackage = settingsPanel.invokerPackage
-        configurator.groupId = settingsPanel.groupId
-        configurator.artifactId = settingsPanel.artifactId
-        configurator.artifactVersion = settingsPanel.artifactVersion
-        configurator.apiPackage = settingsPanel.apiPackage
-        configurator.auth = settingsPanel.auth
+        configurator.setLibrary(settingsPanel.library)
+        configurator.setInvokerPackage(settingsPanel.invokerPackage)
+        configurator.setGroupId(settingsPanel.groupId)
+        configurator.setArtifactId(settingsPanel.artifactId)
+        configurator.setArtifactVersion(settingsPanel.artifactVersion)
+        configurator.setApiPackage(settingsPanel.apiPackage)
+        configurator.setAuth(settingsPanel.auth)
 
         if (settingsPanel.includeSystemProperties) {
             System.getProperties().propertyNames().toList().forEach { prop ->
@@ -277,12 +279,12 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
                     .opts(configurator.toClientOptInput())
                     .generate()
 
-            logger.info("Generated ${configurator.generatorName} output in ${outputBrowse.text}.")
+            logger.info("Generated $generatorName output in ${outputBrowse.text}.")
 
             if(files.count() > 0) logger.debug("Generated files:")
             files.forEach { f -> logger.debug(f.canonicalPath) }
 
-            notificationManager.success(currentConfigOptions?.config?.name ?: configurator.generatorName, configurator.outputDir)
+            notificationManager.success(currentConfigOptions?.config?.name ?: generatorName, outputBrowse.text)
         } catch (t: Throwable) {
             // notificationManager logs the error here, and we don't want to duplicate
             notificationManager.failure(t)

@@ -25,7 +25,7 @@ class CodegenVersion : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val version = DefaultCodegen::class.java.`package`.implementationVersion
-        Messages.showMessageDialog(project, "OpenAPI Generator ${version?:"unknown"}", "Information", Messages.getInformationIcon())
+        Messages.showMessageDialog(project, "OpenAPI Generator ${version?:"unknown"}<br/>See <a href=\"https://openapi-generator.tech/\">Official Docs</a>", "Information", Messages.getInformationIcon())
 
     }
 }
