@@ -17,7 +17,7 @@
 <idea-plugin>
   <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
   <name>OpenAPI Generator</name>
-  <version>4.0.0</version>
+  <version>4.3.0-p0</version>
   <vendor email="james.schubert@gmail.com" url="https://jimschubert.us">Jim Schubert</vendor>
 
   <description><![CDATA[
@@ -34,6 +34,13 @@
 
   <change-notes><![CDATA[
       <dl>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v4.3.0-p0">4.3.0-p0</a></dt>
+        <dd>
+          <ul>
+            <li>Bump OpenAPI Generator version to 4.3.0</li>
+            <li>Skips plugin versions 4.1.0-4.2.0 to align with OpenAPI Generator versioning, appends semantic plugin revision</li>
+          </ul>
+        </dd>
         <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v4.0.0">4.0.0</a></dt>
         <dd>
           <ul>
