@@ -68,7 +68,6 @@ dependencies {
 
     compile("org.openapitools:openapi-generator:$openapiGeneratorVersion") {
         exclude group: 'org.slf4j', module: 'slf4j-api'
-        exclude group: 'org.slf4j', module: 'slf4j-ext'
         exclude group: 'org.slf4j', module: 'slf4j-simple'
     }
     testCompile group: 'junit', name: 'junit', version: '4.12'
