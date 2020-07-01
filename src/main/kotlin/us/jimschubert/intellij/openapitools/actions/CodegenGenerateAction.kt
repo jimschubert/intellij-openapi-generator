@@ -33,11 +33,11 @@ class CodegenGenerateAction : AnAction() {
         GenerateDialog(project, file, notificationManager).show()
     }
 
-    override fun update(e: AnActionEvent?) {
+    override fun update(e: AnActionEvent) {
         try {
-            val file = e?.getData(PlatformDataKeys.VIRTUAL_FILE)
+            val file = e.getData(PlatformDataKeys.VIRTUAL_FILE)
             val ext = file?.extension?.toLowerCase() ?: ""
-            if (e != null && file != null) {
+            if (file != null) {
                 // TODO: Add a better condition here, or maybe support user-defined regex
                 e.presentation.isEnabled = validExtensions.contains(ext)
             } else {

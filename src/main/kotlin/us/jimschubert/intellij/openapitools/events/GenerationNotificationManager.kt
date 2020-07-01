@@ -16,6 +16,7 @@
 
 package us.jimschubert.intellij.openapitools.events
 
+import com.intellij.ide.actions.RevealFileAction
 import com.intellij.ide.actions.ShowFilePathAction
 import com.intellij.notification.*
 import com.intellij.openapi.application.ApplicationManager
@@ -43,8 +44,8 @@ class GenerationNotificationManager {
         // Use a NotificationAction here rather than a listener with hyperlinks.
         // This allows "Open" link to be functional in Event Log, and that link will "expire" once it is clicked in the Event Log.
         val notification = notificationGroup.createNotification(title, content, NotificationType.INFORMATION, null)
-        val openAction = NotificationAction.create("Open") {
-            ShowFilePathAction.openFile(Paths.get(outputDir).toAbsolutePath().toFile())
+        val openAction = NotificationAction.create("Open") {  _ ->
+            RevealFileAction.openFile(Paths.get(outputDir).toAbsolutePath().toFile())
             notification.expire()
         }
         notification.addAction(openAction)

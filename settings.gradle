@@ -1,3 +1,1 @@
-rootProject.name = "intellij-openapi-generator-root"
-include 'plugin'
-findProject(':plugin')?.name = 'intellij-openapi-generator'
+rootProject.name = "intellij-openapi-generator"

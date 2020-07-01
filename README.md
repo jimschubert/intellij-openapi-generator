@@ -2,6 +2,10 @@
 
 ![Assemble Plugin](https://github.com/jimschubert/intellij-openapi-generator/workflows/Assemble%20Plugin/badge.svg)
 
+<!-- Plugin description -->
+The OpenAPI Generator plugin allows you to generate client, server, or documentation code from your OpenAPI specifications within your IDE.
+<!-- Plugin description end -->
+
 This plugin allows for a sort of _spec_ driven development.
 
 While designing your API, you can generate one or more clients from within the IDE to evaluate your changes.
