@@ -214,7 +214,7 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
             currentConfigOptions = configOptions
             val tabPane = langPanel.component.components.first() as? JBTabsImpl
             if (currentConfigOptions != null) {
-                langPanel.setTitleAt(0, currentConfigOptions?.config?.name)
+                langPanel.setTitleAt(0, currentConfigOptions?.config?.name?:"")
                 tabPane?.tabs?.forEachIndexed { index, tabInfo -> if(index > 0) tabInfo.isHidden = false }
             } else {
                 langPanel.setTitleAt(0, "OpenAPI Generator")
