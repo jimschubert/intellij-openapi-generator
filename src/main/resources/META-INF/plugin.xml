@@ -17,7 +17,7 @@
 <idea-plugin>
   <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
   <name>OpenAPI Generator</name>
-  <version>4.0.0</version>
+  <version>4.3.0-p0</version>
   <vendor email="james.schubert@gmail.com" url="https://jimschubert.us">Jim Schubert</vendor>
 
   <description><![CDATA[
@@ -34,6 +34,19 @@
 
   <change-notes><![CDATA[
       <dl>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v4.3.1-p0">4.3.1-p0</a></dt>
+        <dd>
+          <ul>
+            <li>Bump OpenAPI Generator version to 4.3.1</li>
+          </ul>
+        </dd>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v4.3.0-p0">4.3.0-p0</a></dt>
+        <dd>
+          <ul>
+            <li>Bump OpenAPI Generator version to 4.3.0</li>
+            <li>Skips plugin versions 4.1.0-4.2.0 to align with OpenAPI Generator versioning, appends semantic plugin revision</li>
+          </ul>
+        </dd>
         <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v4.0.0">4.0.0</a></dt>
         <dd>
           <ul>
@@ -44,33 +57,6 @@
         <dd>
           <ul>
             <li>Bump OpenAPI Generator version to 4.0.0</li>
-          </ul>
-        </dd>
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v2.1.1">2.1.1</a></dt>
-        <dd>
-          <ul>
-            <li>Bump OpenAPI Generator version to 3.2.3</li>
-          </ul>
-        </dd>
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v2.0.1">2.1.0</a></dt>
-        <dd>
-          <ul>
-            <li>Fix minimum supported IDE products to 2016.2 (162)</li>
-          </ul>
-        </dd>
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v2.0.1">2.0.1</a></dt>
-        <dd>
-          <ul>
-            <li>Bump OpenAPI Generator version to 3.2.0</li>
-          </ul>
-        </dd>
-        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v2.0.0">2.0.0</a></dt>
-        <dd>
-          <ul>
-            <li>Plugin renamed from Swagger Codegen to OpenAPI Generator</li>
-            <li>Migrate from Swagger Codegen to OpenAPI Tools community fork</li>
-            <li>Initial support for Open API v3.x specifications, thanks to openapi-generator</li>
-            <li>Remove all Swagger images and references to Swagger specifications and SmartBear</li>
           </ul>
         </dd>
       </dl>
