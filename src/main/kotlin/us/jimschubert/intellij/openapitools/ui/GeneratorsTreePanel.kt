@@ -43,7 +43,6 @@ internal class GeneratorsTreePanel(private val generators: Map<CodegenType, List
         genTypeTree.cellRenderer = Renderer()
 
         TreeUtil.expandAll(genTypeTree)
-        UIUtil.setLineStyleAngled(genTypeTree)
         genTypeTree.isRootVisible = false
         genTypeTree.showsRootHandles = true
 
@@ -58,7 +57,8 @@ internal class GeneratorsTreePanel(private val generators: Map<CodegenType, List
 
         val basicUi = genTypeTree.ui as BasicTreeUI
         basicUi.leftChildIndent = 6 // Distance between left margin and where vertical dashes will be drawn.
-        basicUi.rightChildIndent = 4 // Distance to add to leftChildIndent to determine where cell contents will be drawn.
+        basicUi.rightChildIndent =
+            4 // Distance to add to leftChildIndent to determine where cell contents will be drawn.
 
         layout = BorderLayout()
         add(genTypeTree, BorderLayout.CENTER)
@@ -79,11 +79,17 @@ internal class GeneratorsTreePanel(private val generators: Map<CodegenType, List
             isOpaque = false
         }
 
-        override fun customizeCellRenderer(tree: JTree, value: Any?, selected: Boolean, expanded: Boolean, leaf: Boolean, row: Int, hasFocus: Boolean) {
+        override fun customizeCellRenderer(
+            tree: JTree,
+            value: Any?,
+            selected: Boolean,
+            expanded: Boolean,
+            leaf: Boolean,
+            row: Int,
+            hasFocus: Boolean
+        ) {
             val node = value as GeneratorsTreeNode? ?: return
             node.render(this, tree, selected)
         }
-
-
     }
 }

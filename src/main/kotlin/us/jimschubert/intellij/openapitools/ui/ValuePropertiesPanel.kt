@@ -49,10 +49,10 @@ internal class ValuePropertiesPanel(header: String = "Value") : JPanel(BorderLay
         }
 
         _editor.setModel(
-                arrayOf(
-                        ValidatingValueColumnInfo<SimpleValueItem>(header, PlainTextCellEditor())
-                ),
-                _items
+            arrayOf(
+                ValidatingValueColumnInfo<SimpleValueItem>(header, PlainTextCellEditor())
+            ),
+            _items
         )
 
         add(_editor.contentPane, BorderLayout.CENTER)

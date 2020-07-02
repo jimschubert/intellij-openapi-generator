@@ -28,7 +28,13 @@ internal class PlainTextCellEditor : AbstractTableCellEditor() {
         component = JTextField()
     }
 
-    override fun getTableCellEditorComponent(table: JTable?, value: Any?, isSelected: Boolean, row: Int, column: Int): Component? {
+    override fun getTableCellEditorComponent(
+        table: JTable?,
+        value: Any?,
+        isSelected: Boolean,
+        row: Int,
+        column: Int
+    ): Component? {
         component = JTextField()
         component.text = value?.toString() ?: ""
         return component

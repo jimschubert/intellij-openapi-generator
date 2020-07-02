@@ -22,7 +22,11 @@ import org.openapitools.codegen.CodegenConfig
 import javax.swing.JTree
 import javax.swing.tree.DefaultMutableTreeNode
 
-internal open class GeneratorsTreeNode(val display: String?, val value: CodegenConfig? = null, val parentNode: GeneratorsTreeNode? = null) : DefaultMutableTreeNode(value) {
+internal open class GeneratorsTreeNode(
+    val display: String?,
+    val value: CodegenConfig? = null,
+    val parentNode: GeneratorsTreeNode? = null
+) : DefaultMutableTreeNode(value) {
     fun render(component: SimpleColoredComponent, tree: JTree, selected: Boolean) {
         val unobtrusive = SimpleTextAttributes(SimpleTextAttributes.STYLE_PLAIN, tree.foreground.darker().darker())
         val normal = SimpleTextAttributes(SimpleTextAttributes.STYLE_OPAQUE, tree.foreground)

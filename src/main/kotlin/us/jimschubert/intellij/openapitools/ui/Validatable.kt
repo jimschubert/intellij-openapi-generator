@@ -19,5 +19,7 @@ package us.jimschubert.intellij.openapitools.ui
 import com.intellij.openapi.ui.ValidationInfo
 
 interface Validatable {
-    fun doValidate() : ValidationInfo? { return null }
+    fun doValidate(): ValidationInfo? {
+        return null
+    }
 }

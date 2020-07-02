@@ -27,8 +27,7 @@ import javax.swing.event.EventListenerList
 internal class ActionButtonGroup : ButtonGroup() {
     private val app = ApplicationManager.getApplication()
     private val boundListeners = EventListenerList()
-    private val listener = Listener(this) {
-        e: ActionEvent? ->
+    private val listener = Listener(this) { e: ActionEvent? ->
         onChange(e)
     }
 
@@ -60,7 +59,8 @@ internal class ActionButtonGroup : ButtonGroup() {
         }
     }
 
-    private class Listener(@Suppress("unused") val owner: ActionButtonGroup, val callback: (ActionEvent?) -> Unit) : ActionListener {
+    private class Listener(@Suppress("unused") val owner: ActionButtonGroup, val callback: (ActionEvent?) -> Unit) :
+        ActionListener {
         override fun actionPerformed(e: ActionEvent?) {
             callback.invoke(e)
         }

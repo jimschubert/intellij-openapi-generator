@@ -22,8 +22,8 @@ import javax.swing.JTextField
 import javax.swing.table.TableCellEditor
 
 internal class ValidatingValueColumnInfo<T : SimpleValueItem>(
-        columnName: String,
-        private val editor: TableCellEditor? = null
+    columnName: String,
+    private val editor: TableCellEditor? = null
 ) : ColumnInfo<T, Any>(columnName), ValidatingTableEditor.RowHeightProvider {
     override fun valueOf(item: T): String? {
         return item.value
@@ -45,4 +45,3 @@ internal class ValidatingValueColumnInfo<T : SimpleValueItem>(
         return JTextField().preferredSize.height + 1
     }
 }
-

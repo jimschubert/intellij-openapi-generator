@@ -16,5 +16,8 @@
 
 package us.jimschubert.intellij.openapitools.ui
 
-internal fun KeyValuePropertiesPanel.itemsAsMap(): MutableMap<String, String> = mutableMapOf(* items.map { it.key to it.value }.toTypedArray())
-internal fun ValuePropertiesPanel.itemsAsSet(): MutableSet<String> = mutableSetOf(* items.map { it.value }.toTypedArray())
+internal fun KeyValuePropertiesPanel.itemsAsMap(): MutableMap<String, String> =
+    mutableMapOf(* items.map { it.key to it.value }.toTypedArray())
+
+internal fun ValuePropertiesPanel.itemsAsSet(): MutableSet<String> =
+    mutableSetOf(* items.map { it.value }.toTypedArray())

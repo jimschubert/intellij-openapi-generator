@@ -43,13 +43,13 @@ internal class LanguageOptionsPanel(val language: CodegenConfig) {
         // TODO: Wrap JComponent instances to required fields
 
         var form = FormBuilder.createFormBuilder()
-                .setAlignLabelOnRight(false)
-                .setVerticalGap(4)
+            .setAlignLabelOnRight(false)
+            .setVerticalGap(4)
 
         language.cliOptions().forEachIndexed { _, cliOption ->
             val enums: Map<String, String> = cliOption.enum ?: mapOf()
             val optionComponent: JComponent = when {
-            // TODO: Support any other cliOption types?
+                // TODO: Support any other cliOption types?
                 cliOption.type == "string" && enums.isEmpty() -> {
                     val text = JTextField(cliOption.default)
 
@@ -58,8 +58,10 @@ internal class LanguageOptionsPanel(val language: CodegenConfig) {
                     text
                 }
                 cliOption.type == "string" && enums.isNotEmpty() -> {
-                    val options = enums.map { us.jimschubert.intellij.openapitools.ui.CliConstrainedOption.fromKvp(it) }.toList()
-                    val panel = us.jimschubert.intellij.openapitools.ui.ConstrainedOptionsPanel(options, cliOption.default)
+                    val options =
+                        enums.map { us.jimschubert.intellij.openapitools.ui.CliConstrainedOption.fromKvp(it) }.toList()
+                    val panel =
+                        us.jimschubert.intellij.openapitools.ui.ConstrainedOptionsPanel(options, cliOption.default)
 
                     optionTrackers.add(UserOptionInput(cliOption) { panel.value })
 

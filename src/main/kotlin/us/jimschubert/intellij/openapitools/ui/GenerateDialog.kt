@@ -45,11 +45,14 @@ import us.jimschubert.intellij.openapitools.Message
 import us.jimschubert.intellij.openapitools.events.GenerationNotificationManager
 import java.awt.BorderLayout
 import java.io.File
-import java.lang.IllegalStateException
 import java.util.*
 import javax.swing.*
 
-class GenerateDialog(private val project: Project, val file: VirtualFile, private val notificationManager: GenerationNotificationManager) : DialogWrapper(project) {
+class GenerateDialog(
+    private val project: Project,
+    val file: VirtualFile,
+    private val notificationManager: GenerationNotificationManager
+) : DialogWrapper(project) {
     companion object {
         private var generatorTypeMap: MutableMap<CodegenType, MutableList<CodegenConfig>> = mutableMapOf()
 //        private val app = ApplicationManager.getApplication()
@@ -76,20 +79,21 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
 
     init {
         outputBrowse.addBrowseFolderListener(
-                us.jimschubert.intellij.openapitools.Message of "dialog.generate.output-browse.title",
-                null,
-                project,
-                FileChooserDescriptorFactory.createSingleFolderDescriptor()
+            us.jimschubert.intellij.openapitools.Message of "dialog.generate.output-browse.title",
+            null,
+            project,
+            FileChooserDescriptorFactory.createSingleFolderDescriptor()
         )
 
         // TODO: Prior to building anything here, read and parse file. If that fails, bail immediately with error message.
         if (generatorTypeMap.isEmpty()) {
-            val extensions: List<CodegenConfig> = ServiceLoader.load(CodegenConfig::class.java, CodegenConfig::class.java.classLoader).toList()
+            val extensions: List<CodegenConfig> =
+                ServiceLoader.load(CodegenConfig::class.java, CodegenConfig::class.java.classLoader).toList()
             for (extension in extensions) {
                 if (!generatorTypeMap.containsKey(extension.tag)) {
                     generatorTypeMap[extension.tag] = mutableListOf(extension)
                 } else {
-                    generatorTypeMap[extension.tag]!!.add(extension)
+                    generatorTypeMap[extension.tag]?.add(extension)
                 }
             }
         }
@@ -112,38 +116,38 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
 
     private fun createPrimitivesPanel() {
         primitivesPanel = ValuePropertiesPanel(
-                Message of "panel.primitive-types.value-column"
+            Message of "panel.primitive-types.value-column"
         )
         primitivesPanel.setEmptyMessage(Message of "panel.primitive-types.empty-message")
     }
 
     private fun createTypeMappingsPanel() {
         typeMappingsPanel = KeyValuePropertiesPanel(
-                us.jimschubert.intellij.openapitools.Message of "panel.type-mappings.key-column",
-                us.jimschubert.intellij.openapitools.Message of "panel.type-mappings.value-column"
+            us.jimschubert.intellij.openapitools.Message of "panel.type-mappings.key-column",
+            us.jimschubert.intellij.openapitools.Message of "panel.type-mappings.value-column"
         )
         typeMappingsPanel.setEmptyMessage(Message of "panel.type-mappings.empty-message")
     }
 
     private fun createImportMappingsPanel() {
         importMappingsPanel = KeyValuePropertiesPanel(
-                Message of "panel.import-mappings.key-column",
-                Message of "panel.import-mappings.value-column"
+            Message of "panel.import-mappings.key-column",
+            Message of "panel.import-mappings.value-column"
         )
         importMappingsPanel.setEmptyMessage(Message of "panel.import-mappings.empty-message")
     }
 
     private fun createAdditionalPropertiesPanel() {
         additionalPropertiesPanel = KeyValuePropertiesPanel(
-                Message of "panel.additional-properties.key-column"
+            Message of "panel.additional-properties.key-column"
         )
         additionalPropertiesPanel.setEmptyMessage(Message of "panel.additional-properties.empty-message")
     }
 
     private fun createInstantiationTypesPanel() {
         instantiationTypesPanel = KeyValuePropertiesPanel(
-                Message of "panel.instantiation-types.key-column",
-                Message of "panel.instantiation-types.value-column"
+            Message of "panel.instantiation-types.key-column",
+            Message of "panel.instantiation-types.value-column"
         )
         instantiationTypesPanel.setEmptyMessage(Message of "panel.instantiation-types.empty-message")
     }
@@ -159,28 +163,28 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
         // valid OpenAPI file
         SwaggerParser().readWithInfo(file.path) ?: return ValidationInfo("Specification file is invalid.", null)
 
-        if(outputBrowse.text.isEmpty()){
+        if (outputBrowse.text.isEmpty()) {
             notificationManager.warn("Output directory is empty.")
             return ValidationInfo("Output directory is empty.", outputBrowse)
         } else {
             val path = outputBrowse.text.replaceFirst("^~", System.getProperty("user.home"))
-            if(outputBrowse.text != path) {
+            if (outputBrowse.text != path) {
                 outputBrowse.text = path
             }
 
             val output = File(FileUtil.toSystemDependentName(path))
-            if(output.exists() && !output.isDirectory) {
+            if (output.exists() && !output.isDirectory) {
                 notificationManager.warn("Output directory is not a valid directory.")
                 return ValidationInfo("Output directory is not a valid directory.", outputBrowse)
             }
-            if(!output.exists()) {
-                if(FileUtil.createDirectory(output)) {
+            if (!output.exists()) {
+                if (FileUtil.createDirectory(output)) {
                     notificationManager.warn("Could not create output directory.")
                     return ValidationInfo("Could not create output directory.", outputBrowse)
                 }
             }
 
-            if(!output.canWrite()) {
+            if (!output.canWrite()) {
                 notificationManager.warn("Output directory is not writable.")
                 return ValidationInfo("Output directory is not writable.", outputBrowse)
             }
@@ -214,11 +218,11 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
             currentConfigOptions = configOptions
             val tabPane = langPanel.component.components.first() as? JBTabsImpl
             if (currentConfigOptions != null) {
-                langPanel.setTitleAt(0, currentConfigOptions?.config?.name?:"")
-                tabPane?.tabs?.forEachIndexed { index, tabInfo -> if(index > 0) tabInfo.isHidden = false }
+                langPanel.setTitleAt(0, currentConfigOptions?.config?.name ?: "")
+                tabPane?.tabs?.forEachIndexed { index, tabInfo -> if (index > 0) tabInfo.isHidden = false }
             } else {
                 langPanel.setTitleAt(0, "OpenAPI Generator")
-                tabPane?.tabs?.forEachIndexed { index, tabInfo -> if(index > 0) tabInfo.isHidden = true }
+                tabPane?.tabs?.forEachIndexed { index, tabInfo -> if (index > 0) tabInfo.isHidden = true }
             }
             langPanel.selectedIndex = 0
             syncOptionsPanelOnChange(p)
@@ -233,7 +237,8 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
 
         val configurator = CodegenConfigurator.fromFile(settingsPanel.configurationFile) ?: CodegenConfigurator()
 
-        val generatorName = currentConfigOptions?.config?.javaClass?.typeName ?: throw IllegalStateException("Configuration options is unexpectedly inaccessible")
+        val generatorName = currentConfigOptions?.config?.javaClass?.typeName
+            ?: throw IllegalStateException("Configuration options is unexpectedly inaccessible")
         configurator.setInputSpec(file.path)
         configurator.setGeneratorName(generatorName)
         configurator.setOutputDir(outputBrowse.text)
@@ -248,7 +253,7 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
         configurator.setVerbose(settingsPanel.isVerbose)
         configurator.setSkipOverwrite(settingsPanel.skipOverwrite)
 
-        if(settingsPanel.templateDirectory != null)
+        if (settingsPanel.templateDirectory != null)
             configurator.setTemplateDir(settingsPanel.templateDirectory)
 
         configurator.setLibrary(settingsPanel.library)
@@ -276,12 +281,12 @@ class GenerateDialog(private val project: Project, val file: VirtualFile, privat
 
         try {
             val files: MutableList<File> = DefaultGenerator()
-                    .opts(configurator.toClientOptInput())
-                    .generate()
+                .opts(configurator.toClientOptInput())
+                .generate()
 
             logger.info("Generated $generatorName output in ${outputBrowse.text}.")
 
-            if(files.count() > 0) logger.debug("Generated files:")
+            if (files.count() > 0) logger.debug("Generated files:")
             files.forEach { f -> logger.debug(f.canonicalPath) }
 
             notificationManager.success(currentConfigOptions?.config?.name ?: generatorName, outputBrowse.text)

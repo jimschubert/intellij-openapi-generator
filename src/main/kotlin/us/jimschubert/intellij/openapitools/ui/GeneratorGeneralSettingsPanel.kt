@@ -91,26 +91,32 @@ internal class GeneratorGeneralSettingsPanel : Validatable {
     init {
 
         val settingsPanelBuilder = FormBuilder.createFormBuilder()
-                .addLabeledComponent("Verbose", checkbox { selected -> _isVerbose = selected })
-                .addLabeledComponent("Skip Overwrite", checkbox { selected -> _skipOverwrite = selected })
-                .addLabeledComponent("Include System Properties", checkbox { selected -> _includeSystemProperties = selected })
-                .addLabeledComponent("Template Directory",
-                        browse("panel.general-settings.browse.template-dir",
-                                FileChooserDescriptorFactory.createSingleFolderDescriptor()) { e ->
-                            _templateDirectory = e.current
-                        })
-                .addLabeledComponent("Configuration File",
-                        browse("panel.general-settings.browse.config-file",
-                                FileChooserDescriptorFactory.createSingleFileDescriptor(JsonFileType.INSTANCE)) { e ->
-                            _configurationFile = e.current
-                        })
-                .addLabeledComponent("Library", text { e -> _library = e.current })
-                .addLabeledComponent("Invoker Package", text { e -> _invokerPackage = e.current })
-                .addLabeledComponent("Group ID", text { e -> _groupId = e.current })
-                .addLabeledComponent("Artifact ID", text { e -> _artifactId = e.current })
-                .addLabeledComponent("Artifact Version", text { e -> _artifactVersion = e.current })
-                .addLabeledComponent("API Package", text { e -> _apiPackage = e.current })
-                .addLabeledComponent("Auth", text { e -> _auth = e.current })
+            .addLabeledComponent("Verbose", checkbox { selected -> _isVerbose = selected })
+            .addLabeledComponent("Skip Overwrite", checkbox { selected -> _skipOverwrite = selected })
+            .addLabeledComponent(
+                "Include System Properties",
+                checkbox { selected -> _includeSystemProperties = selected })
+            .addLabeledComponent("Template Directory",
+                browse(
+                    "panel.general-settings.browse.template-dir",
+                    FileChooserDescriptorFactory.createSingleFolderDescriptor()
+                ) { e ->
+                    _templateDirectory = e.current
+                })
+            .addLabeledComponent("Configuration File",
+                browse(
+                    "panel.general-settings.browse.config-file",
+                    FileChooserDescriptorFactory.createSingleFileDescriptor(JsonFileType.INSTANCE)
+                ) { e ->
+                    _configurationFile = e.current
+                })
+            .addLabeledComponent("Library", text { e -> _library = e.current })
+            .addLabeledComponent("Invoker Package", text { e -> _invokerPackage = e.current })
+            .addLabeledComponent("Group ID", text { e -> _groupId = e.current })
+            .addLabeledComponent("Artifact ID", text { e -> _artifactId = e.current })
+            .addLabeledComponent("Artifact Version", text { e -> _artifactVersion = e.current })
+            .addLabeledComponent("API Package", text { e -> _apiPackage = e.current })
+            .addLabeledComponent("Auth", text { e -> _auth = e.current })
 
         _component = settingsPanelBuilder.panel
     }
@@ -128,14 +134,18 @@ internal class GeneratorGeneralSettingsPanel : Validatable {
         return element
     }
 
-    private fun browse(bundleKey: String?, descriptor: FileChooserDescriptor, listener: (JTextFieldChangeEvent) -> Unit): TextFieldWithBrowseButton {
+    private fun browse(
+        bundleKey: String?,
+        descriptor: FileChooserDescriptor,
+        listener: (JTextFieldChangeEvent) -> Unit
+    ): TextFieldWithBrowseButton {
         val element = TextFieldWithBrowseButton()
         @Suppress("InvalidBundleOrProperty")
         element.addBrowseFolderListener(
-                Message of (bundleKey ?: UIBundle.message("file.chooser.default.title")),
-                null,
-                null,
-                descriptor
+            Message of (bundleKey ?: UIBundle.message("file.chooser.default.title")),
+            null,
+            null,
+            descriptor
         )
 
         element.textField.onChange { evt -> listener(evt) }
@@ -144,15 +154,15 @@ internal class GeneratorGeneralSettingsPanel : Validatable {
     }
 
     override fun doValidate(): ValidationInfo? {
-        if(_templateDirectory != null && _templateDirectory != "") {
+        if (_templateDirectory != null && _templateDirectory != "") {
             val tmplDir = File(_templateDirectory)
-            if(!(tmplDir.exists() && tmplDir.isDirectory && tmplDir.canRead())) {
+            if (!(tmplDir.exists() && tmplDir.isDirectory && tmplDir.canRead())) {
                 return ValidationInfo("Invalid template directory")
             }
         }
-        if(_configurationFile != null && _configurationFile != "") {
+        if (_configurationFile != null && _configurationFile != "") {
             val configFile = File(_configurationFile)
-            if(!(configFile.exists() && configFile.isFile && configFile.canRead())) {
+            if (!(configFile.exists() && configFile.isFile && configFile.canRead())) {
                 return ValidationInfo("Invalid configuration file")
             }
         }
@@ -165,7 +175,8 @@ fun JTextField.onChange(listener: (JTextFieldChangeEvent) -> Unit) {
     document.addDocumentListener(TextChangeListener(this, listener))
 }
 
-class TextChangeListener(private val source: JTextField, private val listener: (JTextFieldChangeEvent) -> Unit) : DocumentListener {
+class TextChangeListener(private val source: JTextField, private val listener: (JTextFieldChangeEvent) -> Unit) :
+    DocumentListener {
     private var prev: String? = null
     private val app = ApplicationManager.getApplication()
 
@@ -182,4 +193,4 @@ class TextChangeListener(private val source: JTextField, private val listener: (
 
 @Suppress("unused", "CanBeParameter")
 class JTextFieldChangeEvent(private val source: JTextField, val previous: String?, val current: String?) :
-        AWTEvent(source, TextEvent.TEXT_VALUE_CHANGED)
+    AWTEvent(source, TextEvent.TEXT_VALUE_CHANGED)

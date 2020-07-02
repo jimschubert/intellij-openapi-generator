@@ -26,7 +26,8 @@ internal class GeneratorsTreeRootNode(generators: Map<CodegenType, List<CodegenC
             add(genNode)
             for (typedGenerator in generator.value) {
                 // TODO: Cleanup the display text
-                val typedNode = GeneratorsTreeNode(display = typedGenerator.name, value = typedGenerator, parentNode = genNode)
+                val typedNode =
+                    GeneratorsTreeNode(display = typedGenerator.name, value = typedGenerator, parentNode = genNode)
                 genNode.add(typedNode)
             }
         }

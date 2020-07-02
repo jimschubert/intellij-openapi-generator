@@ -21,7 +21,8 @@ import java.awt.GridBagLayout
 import javax.swing.JPanel
 import javax.swing.JRadioButton
 
-internal class ConstrainedOptionsPanel(options: List<CliConstrainedOption>, private val default: String? = null) : JPanel(GridBagLayout()) {
+internal class ConstrainedOptionsPanel(options: List<CliConstrainedOption>, private val default: String? = null) :
+    JPanel(GridBagLayout()) {
     private val defaultIdentifier = "<default>"
     private val group: ActionButtonGroup = ActionButtonGroup()
 
@@ -53,7 +54,7 @@ internal class ConstrainedOptionsPanel(options: List<CliConstrainedOption>, priv
             }
         }
         // avoid group.selection to be null when there is no default option
-        if (group.selection == null) group.elements.nextElement().isSelected = true        
+        if (group.selection == null) group.elements.nextElement().isSelected = true
     }
 
     val value: String

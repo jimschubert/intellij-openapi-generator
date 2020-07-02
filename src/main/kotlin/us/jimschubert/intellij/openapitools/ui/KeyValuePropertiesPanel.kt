@@ -32,7 +32,8 @@ internal class KeyValuePropertiesPanel(key: String = "Key", val value: String = 
         _editor = object : ValidatingTableEditor<SimpleKeyValueItem>() {
             override fun createItem(): SimpleKeyValueItem? = SimpleKeyValueItem("", "")
 
-            override fun cloneOf(item: SimpleKeyValueItem?): SimpleKeyValueItem? = SimpleKeyValueItem(item?.key ?: "", item?.value ?: "")
+            override fun cloneOf(item: SimpleKeyValueItem?): SimpleKeyValueItem? =
+                SimpleKeyValueItem(item?.key ?: "", item?.value ?: "")
 
             override fun validate(item: SimpleKeyValueItem?): String? {
                 when {
@@ -52,11 +53,11 @@ internal class KeyValuePropertiesPanel(key: String = "Key", val value: String = 
         }
 
         _editor.setModel(
-                arrayOf(
-                        ValidatingKeyColumnInfo<SimpleKeyValueItem>(key, PlainTextCellEditor()),
-                        ValidatingValueColumnInfo<SimpleKeyValueItem>(value, PlainTextCellEditor())
-                ),
-                _items
+            arrayOf(
+                ValidatingKeyColumnInfo<SimpleKeyValueItem>(key, PlainTextCellEditor()),
+                ValidatingValueColumnInfo<SimpleKeyValueItem>(value, PlainTextCellEditor())
+            ),
+            _items
         )
 
         add(_editor.contentPane, BorderLayout.CENTER)
@@ -67,5 +68,3 @@ internal class KeyValuePropertiesPanel(key: String = "Key", val value: String = 
     }
 
 }
-
-

@@ -17,7 +17,7 @@
 <idea-plugin>
   <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
   <name>OpenAPI Generator</name>
-  <version>4.3.0-p0</version>
+  <version>4.3.1-p1</version>
   <vendor email="james.schubert@gmail.com" url="https://jimschubert.us">Jim Schubert</vendor>
 
   <description><![CDATA[
@@ -34,6 +34,12 @@
 
   <change-notes><![CDATA[
       <dl>
+        <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v4.3.1-p1">4.3.1-p1</a></dt>
+        <dd>
+          <ul>
+            <li>Sets earliest supported JetBrains products to version 193.4778.7</li>
+          </ul>
+        </dd>
         <dt><a href="https://github.com/jimschubert/intellij-openapi-generator/tree/v4.3.1-p0">4.3.1-p0</a></dt>
         <dd>
           <ul>
