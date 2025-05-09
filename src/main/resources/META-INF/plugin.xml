@@ -18,7 +18,7 @@
   <id>main.kotlin.com.jimschubert.intellij.swaggercodegen</id>
   <name>OpenAPI Generator</name>
   <version>4.3.1-p1</version>
-  <vendor email="james.schubert@gmail.com" url="https://jimschubert.us">Jim Schubert</vendor>
+  <vendor email="james.schubert@gmail.com" url="https://jimschubert.dev">Jim Schubert</vendor>
 
   <description><![CDATA[
       <h1>OpenAPI Generator</h1>
